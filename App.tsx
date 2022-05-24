@@ -25,13 +25,10 @@ function App() {
   }, [])
 
   return (
-    <NavigationContainer>
-      {/* {session ? <HomeScreen/> : <Auth/>} */}
+    <NavigationContainer>     
       
-      {session ? <HomeScreen/> : <Auth />}
-      
-      
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='Auth'>
+        <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Login" component = {Auth} />

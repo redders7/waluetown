@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
+import { NavigationRouteContext } from '@react-navigation/native'
 
-export default function Auth() {
+export default function Auth({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -17,6 +18,7 @@ export default function Auth() {
 
     if (error) Alert.alert(error.message)
     setLoading(false) 
+    navigation.navigate("Home");
   }
 
   async function signUpWithEmail() {
