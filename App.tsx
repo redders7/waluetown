@@ -29,7 +29,6 @@ function App() {
 
   return (
     <NavigationContainer>
-      
       <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
@@ -41,26 +40,6 @@ function App() {
       </Stack.Navigator> 
     </NavigationContainer>
   );
-}
+}   
 
 export default App;
-
-{/* // export default function App() {
-//   const [session, setSession] = useState<Session | null>(null)
-
-//   useEffect(() => {
-//     setSession(supabase.auth.session())
-
-//     supabase.auth.onAuthStateChange((_event, session) => {
-//       setSession(session)
-//     })
-//   }, [])
-
-//   return (
-//     <NavigationContainer>
-//       <View>
-//         {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-//       </View>
-//     </NavigationContainer>
-//   )
-// } */}

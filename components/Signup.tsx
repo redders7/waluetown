@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 
@@ -42,12 +42,15 @@ export default function Auth({navigation}) {
           autoCapitalize={'none'}
         />
       </View>
-      <View style={styles.verticallySpaced}>
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
+      <View style = {{alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => signUpWithEmail()} style = {styles.signup_button}>
+          <Text> Create an account</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -62,4 +65,17 @@ const styles = StyleSheet.create({
   mt20: {
     marginTop: 20,
   },
+  signup_button: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    marginTop: 50,
+    marginBottom: -150,
+    marginHorizontal: 110,
+    backgroundColor: "#EEE1B1",
+    width: 200,
+    borderRadius: 20,
+    borderColor: 'black',
+    borderWidth: 1
+}
 })

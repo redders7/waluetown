@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import { NavigationRouteContext } from '@react-navigation/native'
@@ -44,8 +44,10 @@ export default function Auth({navigation}) {
           autoCapitalize={'none'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+      <View style = {{alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => signInWithEmail()} style = {styles.signin_button}>
+          <Text style = {{color: "white"}}> Sign in</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -63,5 +65,17 @@ const styles = StyleSheet.create({
   },
   mt20: {
     marginTop: 20,
+  },
+  signin_button: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    marginTop: 50,
+    marginBottom: -150,
+    backgroundColor: "#432616",
+    width: 200,
+    borderRadius: 20,
+    borderColor: "black",
+    borderWidth: 1
   },
 })

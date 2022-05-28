@@ -1,4 +1,4 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, Touchable} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
@@ -44,10 +44,13 @@ export default function HomeScreen({ navigation }) {
               width: Dimensions.get("window").width * 0.8,
            }} />
           <Text> Nearby Restaurants</Text>
-          <Image source={sushi} resizeMode="contain" style={{
-            paddingBottom: 50,
-              width: Dimensions.get("window").width * 0.85,
-           }} />
+          <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
+            <Image source={sushi} resizeMode="contain" style={{
+              paddingBottom: 50,
+                width: Dimensions.get("window").width * 0.85,
+            }} />
+          </TouchableOpacity>
+          
         </View>
         {/* <View style={styles.button}> 
           <Button
