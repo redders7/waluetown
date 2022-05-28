@@ -10,6 +10,7 @@ import HomeScreen from './components/HomeScreen'
 import DetailsScreen from './components/DetailsScreen'
 import FirstScreen from './components/FirstScreen'
 import Signup from './components/Signup'
+import Shop from './components/Shop'
 import { View, Text, Button } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
@@ -36,6 +37,7 @@ function App() {
         <Stack.Screen name="Account" component = {Account} />
         <Stack.Screen name="Welcome" component = {FirstScreen} />
         <Stack.Screen name="Sign up" component = {Signup} />
+        <Stack.Screen name = "Shop" component = {Shop} />
       </Stack.Navigator> 
     </NavigationContainer>
   );

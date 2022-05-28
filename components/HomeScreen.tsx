@@ -17,6 +17,10 @@ export default function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Details")}
         />
         <Button
+          title="Go to My Shop"
+          onPress={() => navigation.navigate("Shop")}
+        />
+        <Button
           title="Sign Out"
           onPress={() => signout()}
         />
