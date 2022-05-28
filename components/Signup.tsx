@@ -2,23 +2,21 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
-import { NavigationRouteContext } from '@react-navigation/native'
 
 export default function Auth({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function signInWithEmail() {
+  async function signUpWithEmail() {
     setLoading(true)
-    const { user, error } = await supabase.auth.signIn({
+    const { user, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     })
 
     if (error) Alert.alert(error.message)
-    setLoading(false) 
-    navigation.navigate("Home");
+    setLoading(false)
   }
 
   return (
@@ -44,8 +42,8 @@ export default function Auth({navigation}) {
           autoCapitalize={'none'}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} />
+      <View style={styles.verticallySpaced}>
+        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
     </View>
   )

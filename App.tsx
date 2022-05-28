@@ -8,6 +8,8 @@ import Auth from './components/Auth'
 import Account from './components/Account'
 import HomeScreen from './components/HomeScreen'
 import DetailsScreen from './components/DetailsScreen'
+import FirstScreen from './components/FirstScreen'
+import Signup from './components/Signup'
 import { View, Text, Button } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
@@ -26,16 +28,14 @@ function App() {
 
   return (
     <NavigationContainer>
-      {/* {session ? <HomeScreen/> : <Auth/>} */}
       
-      {session ? <HomeScreen/> : <Auth />}
-      
-      
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='Welcome'>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Login" component = {Auth} />
         <Stack.Screen name="Account" component = {Account} />
+        <Stack.Screen name="Welcome" component = {FirstScreen} />
+        <Stack.Screen name="Sign up" component = {Signup} />
       </Stack.Navigator> 
     </NavigationContainer>
   );
