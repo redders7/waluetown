@@ -7,7 +7,7 @@ export default function HomeScreen({ navigation }) {
   async function signout(){
     const {error} = await supabase.auth.signOut();
     if (error) Alert.alert(error.message);
-    navigation.navigate("Login");
+    navigation.navigate("Welcome");
   }
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
