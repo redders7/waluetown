@@ -17,8 +17,8 @@ export default function Auth({navigation}) {
     })
 
     if (error) Alert.alert(error.message)
+    else navigation.navigate("Home");
     setLoading(false) 
-    navigation.navigate("Home");
   }
 
   return (
