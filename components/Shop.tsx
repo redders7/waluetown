@@ -32,7 +32,8 @@ export default function Shop({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#f0e9d3',
     },
     header: {
         fontSize: 30,
