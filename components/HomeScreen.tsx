@@ -1,9 +1,9 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, Touchable} from 'react-native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, BackHandler} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from '../assets/logo.png';
 import cart from '../assets/cart.png';
 import fav from '../assets/Categories.png'
@@ -18,52 +18,61 @@ export default function HomeScreen({ navigation }) {
     if (error) Alert.alert(error.message);
     navigation.navigate("Welcome");
   }
-    return (
-      <View style={styles.container}>
-        <View style={styles.head}>
-          <TouchableOpacity> 
-            <Image source={logo} resizeMode='contain' style={{
-              width: Dimensions.get("window").width * 0.4,
-              height: Dimensions.get("window").width * 0.2,
-              resizeMode: "contain",
-            }} />
-          </TouchableOpacity>
-          <TouchableOpacity> 
-            <Image source={cart} resizeMode="contain" style={{
-              width: Dimensions.get("window").width * 0.15,
-              height: Dimensions.get("window").width * 0.15,
-              paddingLeft: 400,
-              resizeMode: "contain",
-            }} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.favourites}>
-          <Text>Your Favourites</Text>
-          <Image source={fav} resizeMode="contain" style={{
-            paddingBottom: 50,
-              width: Dimensions.get("window").width * 0.8,
-           }} />
-          <Text> Nearby Restaurants</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
-            <Image source={sushi} resizeMode="contain" style={{
-              paddingBottom: 50,
-                width: Dimensions.get("window").width * 0.85,
-            }} />
-          </TouchableOpacity>
-          
-        </View>
-        {/* <View style={styles.button}> 
-          <Button
-            title="Go to Shop"
-            onPress={() => navigation.navigate("Details")}
-          />
-          <Button
-            title="Sign Out"
-            onPress={() => signout()}
-          />
-        </View>*/}
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackVisible: false
+    })
+  }, [navigation]);
+
+
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.head}>
+        <TouchableOpacity> 
+          <Image source={logo} resizeMode='contain' style={{
+            width: Dimensions.get("window").width * 0.4,
+            height: Dimensions.get("window").width * 0.2,
+            resizeMode: "contain",
+          }} />
+        </TouchableOpacity>
+        <TouchableOpacity> 
+          <Image source={cart} resizeMode="contain" style={{
+            width: Dimensions.get("window").width * 0.15,
+            height: Dimensions.get("window").width * 0.15,
+            paddingLeft: 400,
+            resizeMode: "contain",
+          }} />
+        </TouchableOpacity>
       </View>
-    );
+      <View style={styles.favourites}>
+        <Text>Your Favourites</Text>
+        <Image source={fav} resizeMode="contain" style={{
+          paddingBottom: 50,
+            width: Dimensions.get("window").width * 0.8,
+          }} />
+        <Text> Nearby Restaurants</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
+          <Image source={sushi} resizeMode="contain" style={{
+            paddingBottom: 50,
+              width: Dimensions.get("window").width * 0.85,
+          }} />
+        </TouchableOpacity>
+        
+      </View>
+      <View style={styles.button}> 
+        {/* <Button
+          title="Go to Shop"
+          onPress={() => navigation.navigate("Details")}
+        /> */}
+        <Button
+          title="Sign Out"
+          onPress={() => signout()}
+        />
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     paddingBottom: 250,
     paddingLeft: 100,
+    marginBottom: -150
   },
   favourites: {
     flex: 10,
