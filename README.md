@@ -60,24 +60,16 @@ We will test the app among some bakeries in the Clementi/NUS area.
 |  Login/ Sign up page  | 1st week of June |  Yes  |
 |  Database of user data  | 1st week of June  |  Email and password only  |
 |  3/4 slides of tutorial and introduction  |  3rd week of July  |    |
+
 |  Categories and list of shops  |  1st week of June  |  Yes  |
 |  Drawer menu with various options  |  2nd week of June  |   | 
+|  Search bar  |  2nd week of June  |  | 
+|  Favourite Menu (Side scroll)  |  2nd week of June  |  |
+|  Location service to find nearby shops and show current location  |  1st/2nd week of July  |  |
+|  Estimated distance to shops  |  1st/2nd week of July  |  |
+|  Loyalty bonus (rewards system)  |  3rd week of July  |   |
 
-
-Search bar
-2nd week of June
-
-Favourites Menu (Side scroll)
-2nd week of June
-
-Location services to find nearby shops
-1st/2nd week of July
-
-Estimated distance to shops
-1st/2nd week of July
-
-Loyalty bonus (rewards system)
-1st/2nd week of July
+|  Manage vendor data in database ie. menu items, prices, quantity  |  3rd week of June  |  |
 
 Shop page
 Manage vendor data in database ie. menu items, prices, quantity
