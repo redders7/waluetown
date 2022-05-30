@@ -75,23 +75,12 @@ We will test the app among some bakeries in the Clementi/NUS area.
 ##### Shop Page
 |  Feature  |  Expected date of completion |  Done?  |
 |  -------- | ---------------------------- |  ------ |
-|  Manage vendor data in database ie. menu items, prices, quantity  |  3rd week of June  |  |
+|  Manage vendor data in database ie. menu items, prices, quantity  |  3rd/4th week of June  |  |
+|  Menu, prices and pictures  |  3rd/4th week of June  |  |
+|  Quantity of items left (link to database)  |  3rd/4th week of June  |  |
+|  Directions to shop using Google Maps  |  1st/2nd week of July  |  | 
+|  Suggested items (based on most bought items)  |  3rd week of July  |  |
 
-Shop page
-Manage vendor data in database ie. menu items, prices, quantity
-3rd week of June
-
-Menu and prices and pictures
-3rd week of June
-
-Quantity of items left (link to database)
-3rd week of June
-
-Directions to shop using Maps
-1st/2nd week of July
-
-Suggested items (based on most bought items)
-3rd week of July
 
 
 
