@@ -54,18 +54,13 @@ We will test the app among some bakeries in the Clementi/NUS area.
 
 ## Development plan
 	
-Feature
-Expected Date of Completion
-Done?
-Login/Sign up
-Login/ Sign up page
-1st week of June
-yes
-Database of user data
-1st week of June
-Email and password only
-3/4 slides of tutorial and introduction
-3rd week of July
+	
+| Feature  | Expected date of completion |  Done?  |
+| **Login**|
+| Login/ Sign up page | 1st week of June |  Yes  |
+| Database of user data  | 1st week of June  |  Email and password only  |
+|  3/4 slides of tutorial and introduction  |  3rd week of July  |  No  |
+
 
 Home Page
 Categories and List of shops
