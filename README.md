@@ -1,8 +1,8 @@
-#Documentation
+# Documentation
 
-#####Level of Achievement
+##### Level of Achievement
 Apollo
 
-#####Project Scope
+##### Project Scope
 Developing a mobile app that will link connect food vendors and customers for late-night deals
 
