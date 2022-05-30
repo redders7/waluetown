@@ -1,5 +1,7 @@
 # Documentation
 
+## Project Details
+
 ##### Team Name
 WalueTown (5307)
 
@@ -54,14 +56,14 @@ We will test the app among some bakeries in the Clementi/NUS area.
 
 ## Development plan
 
-##### Login/Sign up
+#### Login/Sign up
 |  Feature  |  Expected date of completion |  Done?  |
 |  -------- | ---------------------------- |  ------ |
 |  Login/ Sign up page  | 1st week of June |  Yes  |
 |  Database of user data  | 1st week of June  |  Email and password only  |
 |  3/4 slides of tutorial and introduction  |  3rd week of July  |    |
 
-##### Home Page
+#### Home Page
 |  Feature  |  Expected date of completion |  Done?  |
 |  -------- | ---------------------------- |  ------ |
 |  Categories and list of shops  |  1st week of June  |  Yes  |
@@ -72,7 +74,7 @@ We will test the app among some bakeries in the Clementi/NUS area.
 |  Estimated distance to shops  |  1st/2nd week of July  |  |
 |  Loyalty bonus (rewards system)  |  3rd week of July  |   |
 
-##### Shop Page
+#### Shop Page
 |  Feature  |  Expected date of completion |  Done?  |
 |  -------- | ---------------------------- |  ------ |
 |  Manage vendor data in database ie. menu items, prices, quantity  |  3rd/4th week of June  |  |
