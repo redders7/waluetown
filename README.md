@@ -55,6 +55,11 @@ We will test the app among some bakeries in the Clementi/NUS area.
 ## Development plan
 	
 	
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+	
 |  Feature  |  Expected date of completion |  Done?  |
 |  ------------------------------------------------- |
 |  Login/ Sign up page  | 1st week of June |  Yes  |
