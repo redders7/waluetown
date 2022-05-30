@@ -82,6 +82,36 @@ We will test the app among some bakeries in the Clementi/NUS area.
 |  Suggested items (based on most bought items)  |  3rd week of July  |  |
 
 
+## Setup / Installations
+
+### Prerequisites
+
+The following are required to run the program locally
+
+- npm
+```
+npm install npm@latest -g
+```
+- Git
+
+Git can be downloaded from [Git's official website.](https://git-scm.com/downloads)
+
+### Instructions
+
+1. Navigate to desired local directory on Command Prompt.
+2. Clone the Waluetown repository
+```
+git clone https://github.com/redders7/waluetown
+```
+3. Install npm packages
+```
+npm install
+```
+4. Start the application on the local server
+```
+expo start
+```
+The Waluetown application can then be run on a mobile device by scanning the QR code with Expo Go (Android) or Camera (iOS) application
 
 
 
