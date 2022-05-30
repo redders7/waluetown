@@ -37,9 +37,9 @@ As a food stall vendor, I want to finish selling my food (at a discounted price)
 As a hungry customer, I want to be able to look for the best quality and cheapest deals near me to satisfy my hunger. 
 
 
-## Project Idea
+## Proposed Core Features
 
-We aim to build a mobile app which has the following features:
+We aim to build a mobile app which has the following core features:
 
 - Food vendors can showcase their discounted food items 
 - Users can search for nearby stalls which offer discounted food items
