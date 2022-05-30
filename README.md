@@ -53,33 +53,16 @@ We will test the app among some bakeries in the Clementi/NUS area.
 
 
 ## Development plan
-	
-	
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+
 	
 |  Feature  |  Expected date of completion |  Done?  |
 |  -------- | ---------------------------- |  ------ |
-|  Login/Sign up  |
-|  -------------  |
 |  Login/ Sign up page  | 1st week of June |  Yes  |
 |  Database of user data  | 1st week of June  |  Email and password only  |
-|  3/4 slides of tutorial and introduction  |  3rd week of July  |  No  |
+|  3/4 slides of tutorial and introduction  |  3rd week of July  |    |
+|  Categories and list of shops  |  1st week of June  |  Yes  |
+|  Drawer menu with various options  |  2nd week of June  |   | 
 
-
-Home Page
-Categories and List of shops
-1st week of June
-yes
-Drawer menu with various options: 
-Home
-Favourites
-Rewards
-Settings
-Sign out
-2nd week of June
 
 Search bar
 2nd week of June
