@@ -1,5 +1,12 @@
 # Documentation
 
+##### Team Name
+WalueTown (5307)
+
+##### Team Members
+Leong Wei Lun, Alfred
+Ong Shao Yong
+
 ##### Level of Achievement
 Apollo
 
