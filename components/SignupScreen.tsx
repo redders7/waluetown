@@ -1,24 +1,22 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { Alert, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
-import { NavigationRouteContext } from '@react-navigation/native'
 
-export default function Auth({navigation}) {
+export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function signInWithEmail() {
+  async function signUpWithEmail() {
     setLoading(true)
-    const { user, error } = await supabase.auth.signIn({
+    const { user, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     })
 
     if (error) Alert.alert(error.message)
-    else navigation.navigate("Home");
-    setLoading(false) 
+    setLoading(false)
   }
 
   return (
@@ -45,13 +43,14 @@ export default function Auth({navigation}) {
         />
       </View>
       <View style = {{alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => signInWithEmail()} style = {styles.signin_button}>
-          <Text style = {{color: "white"}}> Sign in</Text>
+        <TouchableOpacity onPress={() => signUpWithEmail()} style = {styles.signup_button}>
+          <Text> Create an account</Text>
         </TouchableOpacity>
       </View>
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -66,16 +65,17 @@ const styles = StyleSheet.create({
   mt20: {
     marginTop: 20,
   },
-  signin_button: {
+  signup_button: {
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
     marginTop: 50,
     marginBottom: -150,
-    backgroundColor: "#432616",
+    marginHorizontal: 110,
+    backgroundColor: "#EEE1B1",
     width: 200,
     borderRadius: 20,
-    borderColor: "black",
+    borderColor: 'black',
     borderWidth: 1
-  },
+}
 })
