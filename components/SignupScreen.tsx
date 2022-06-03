@@ -3,7 +3,7 @@ import { Alert, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 
-export default function Auth({navigation}) {
+export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)

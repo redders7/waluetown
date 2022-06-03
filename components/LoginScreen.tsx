@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import { NavigationRouteContext } from '@react-navigation/native'
 
-export default function Auth({navigation}) {
+export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -17,7 +17,7 @@ export default function Auth({navigation}) {
     })
 
     if (error) Alert.alert(error.message)
-    else navigation.navigate("Home");
+    else navigation.navigate("App");
     setLoading(false) 
   }
 
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
+      paddingTop: 4,
+      paddingBottom: 4,
+      alignSelf: 'stretch',
   },
   mt20: {
     marginTop: 20,

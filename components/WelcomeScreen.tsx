@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet, Text, View, Button, TouchableOpacity } fro
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const App = ({navigation}) => (
+const WelcomeScreen = ({navigation}) => (
     <View style={styles.container}>
       <ImageBackground source={require("../assets/android/drawable-xxxhdpi/splashscreen.png")} resizeMode="cover" style={styles.image}>
         <View>
@@ -58,5 +58,5 @@ const App = ({navigation}) => (
 
   });
   
-  export default App;
+  export default WelcomeScreen;
 
