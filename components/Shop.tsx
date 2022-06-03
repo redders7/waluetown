@@ -1,13 +1,23 @@
-import {Alert, Text, Button, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, Text, Button, View, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import React, { useState, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { supabase } from '../lib/supabase';
+import { supabase, getAllQuantity} from '../lib/supabase';
 import { Icon } from 'react-native-elements';
+import { setupURLPolyfill } from 'react-native-url-polyfill';
 
-export default function Shop({ navigation }) {
+
+export default function ShopPage({navigation}) {
+    const [salmon, setSalmon] = useState([])
+    const loadAllQuantity = async () => {
+        const {quantity , error} = await getAllQuantity();
+        setSalmon(quantity)
+    }
+    useEffect(() => {
+        loadAllQuantity();
+    },[]);
     return (
       <View style={styles.container}>
-        
         <Text style={styles.header}>
             Sushi Express</Text>
         <View>
@@ -21,7 +31,8 @@ export default function Shop({ navigation }) {
             </TouchableOpacity>
         </View>
         <View>
-            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity = 15")}}>
+            <Text>{salmon[0]}</Text>
+            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", )}}>
                 <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
             </TouchableOpacity>
         </View>
@@ -46,3 +57,4 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
     }
 })
+
