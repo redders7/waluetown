@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: 'stretch',
+      paddingTop: 4,
+      paddingBottom: 4,
+      alignSelf: 'stretch',
   },
   mt20: {
     marginTop: 20,

@@ -10,17 +10,15 @@ import fav from '../assets/Categories.png'
 import sushi from '../assets/sushi.png'
 import {Link} from 'react-scroll';
 import { Header } from 'react-native-elements';
+import SearchBar from './SearchBar'
 
 
 export default function HomeScreen({ navigation }) {
-  async function signout(){
-    const {error} = await supabase.auth.signOut();
-    if (error) Alert.alert(error.message);
-    navigation.navigate("Welcome");
-  }
-
+  const [value, setValue] = useState()
+  function updateSearch(value) {}
+  
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>    
       <View style={styles.head}>
         <TouchableOpacity> 
           <Image source={logo} resizeMode='contain' style={{
@@ -38,6 +36,11 @@ export default function HomeScreen({ navigation }) {
           }} />
         </TouchableOpacity>
       </View>
+
+      <View style= {styles.searchbar}>
+        <SearchBar value = {value} updateSearch = {updateSearch}/>
+      </View>
+
       <View style={styles.favourites}>
         <Text>Your Favourites</Text>
         <Image source={fav} resizeMode="contain" style={{
@@ -53,21 +56,21 @@ export default function HomeScreen({ navigation }) {
         </TouchableOpacity>
         
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   head: {
     flex: .1,
-    paddingBottom: 100,
+    paddingBottom: 80,
     alignContent: "center",
     flexDirection: "row",
+    paddingTop: 10
   },
   container: {
     flex: 1,
     backgroundColor: '#f0e9d3',
-    paddingTop: 50,
     flexDirection: "column",
   },
   second: {
@@ -84,5 +87,9 @@ const styles = StyleSheet.create({
     flex: 10,
     paddingLeft: 25,
     alignContent: 'flex-start',
+  },
+  searchbar: {
+    flex: 1,
+    alignItems: 'center',
   },
 });
