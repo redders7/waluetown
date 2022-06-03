@@ -1,23 +1,21 @@
 import 'react-native-url-polyfill/auto'
 import { useState, useEffect} from 'react'
 import React from 'react';
+import { supabase } from '../../lib/supabase'
+import HomeScreen from '../HomeScreen'
+import Shop from '../Shop'
 import { NavigationContainer, useRoute, useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { supabase } from '../../lib/supabase'
-import LoginScreen from '../LoginScreen'
-import Account from '../Account'
-import HomeScreen from '../HomeScreen'
-import DetailsScreen from '../DetailsScreen'
-import WelcomeScreen from '../WelcomeScreen'
-import SignupScreen from '../SignupScreen'
-import Shop from '../Shop'
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import { View, Text, Button, BackHandler } from 'react-native'
 import { Session } from '@supabase/supabase-js'
-import DrawerStack from './DrawerStack'
 
 const Stack = createNativeStackNavigator();
 
-function Auth() {
+function App() {
   const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
@@ -46,13 +44,11 @@ function Auth() {
   // );
 
   return (
-    <Stack.Navigator initialRouteName="Welcome">
-    <Stack.Screen name="Login" component = {LoginScreen} />
-    <Stack.Screen name="Welcome" component = {WelcomeScreen} />
-    <Stack.Screen name="Sign up" component = {SignupScreen} />
-    <Stack.Screen name = "App" component = {DrawerStack} options = {{headerShown: false}} />
-    </Stack.Navigator> 
+    <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
+    <Stack.Screen name="Home" component = {HomeScreen} />
+    <Stack.Screen name = "Shop" component = {Shop} />
+    </Stack.Navigator>
   );
 }   
 
-export default Auth;
+export default App;

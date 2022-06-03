@@ -3,23 +3,18 @@ import { useState, useEffect} from 'react'
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { supabase } from '../../lib/supabase'
-import LoginScreen from '../LoginScreen'
 import Account from '../Account'
-import HomeScreen from '../HomeScreen'
-import DetailsScreen from '../DetailsScreen'
-import WelcomeScreen from '../WelcomeScreen'
-import SignupScreen from '../SignupScreen'
 import FavouritesScreen from '../FavouritesScreen'
 import RewardsScreen from '../RewardsScreen'
 import SettingsScreen from '../SettingsScreen'
 import CustomDrawer from '../CustomDrawer'
-import Shop from '../Shop'
+import HomeStack from './HomeStack'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { View, Text, Button, BackHandler } from 'react-native'
 import { Session } from '@supabase/supabase-js'
+import { NavigationContainer } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -55,10 +50,9 @@ function App() {
     <Drawer.Navigator 
     drawerContent={props=> <CustomDrawer {...props}/>}
     screenOptions={{drawerLabelStyle: {marginLeft: -15, fontFamily: 'sans-serif-medium'},  drawerActiveBackgroundColor: '#f0e9d3', drawerActiveTintColor: '#000'}}>
-        <Drawer.Screen name="Home" component={HomeScreen} options={{
+        <Drawer.Screen name="HomeStack" component={HomeStack} options={{
           drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
         }} />
-        {/* <Drawer.Screen name = "Shop" component = {Shop} /> */}
         <Drawer.Screen name="Account" component = {Account} options={{
           drawerIcon: ({color}) => (<Ionicons name = "person-outline" size = {22} color ={color}/>)
         }}/>

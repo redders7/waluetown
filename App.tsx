@@ -6,7 +6,7 @@ import { NavigationContainer, useRoute, useFocusEffect, StackActions } from '@re
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from './lib/supabase'
 import AuthStack from './components/navigation/AuthStack'
-import AppStack from './components/navigation/AppStack'
+import DrawerStack from './components/navigation/DrawerStack'
 import { View, Text, Button, BackHandler } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 
@@ -27,7 +27,6 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name = 'Auth' component={AuthStack}/>
-        {/* <Stack.Screen name = 'App' component={AppStack}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
