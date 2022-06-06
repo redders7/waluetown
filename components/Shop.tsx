@@ -2,19 +2,20 @@ import {Alert, Text, Button, View, Image, StyleSheet, TouchableOpacity, FlatList
 import React, { useState, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { supabase, getAllQuantity} from '../lib/supabase';
+import { supabase} from '../lib/supabase';
 import { Icon } from 'react-native-elements';
 import { setupURLPolyfill } from 'react-native-url-polyfill';
 
 
-export default function ShopPage({navigation}) {
-    const [salmon, setSalmon] = useState([])
-    const loadAllQuantity = async () => {
-        const {quantity , error} = await getAllQuantity();
-        setSalmon(quantity)
-    }
+export default function ShopPage() {
+    const [salmon, setSalmon] = useState(0)
+    var quant;
+    const getAllQuantity = async () => {
+        let { data, error } = await supabase.from('Shop').select('quantity').eq('shop_id','1')
+        setSalmon(Number.parseInt(data[0].quantity))
+      }
     useEffect(() => {
-        loadAllQuantity();
+        getAllQuantity();
     },[]);
     return (
       <View style={styles.container}>
@@ -31,8 +32,7 @@ export default function ShopPage({navigation}) {
             </TouchableOpacity>
         </View>
         <View>
-            <Text>{salmon[0]}</Text>
-            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", )}}>
+            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity left: " + salmon)}}>
                 <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
             </TouchableOpacity>
         </View>
