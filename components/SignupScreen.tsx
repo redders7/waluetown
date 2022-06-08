@@ -7,15 +7,39 @@ export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  
+  async function checkEmailExistence(){
+    let { data, error, status} = await supabase
+    .from("users")
+    .select("email")
+    .eq("email",email)
+    .single();
+
+    if (error && status !== 406) {
+        throw error;
+    }
+    if (data) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 
   async function signUpWithEmail() {
     setLoading(true)
-    const { user, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
-
-    if (error) Alert.alert(error.message)
+    if (await checkEmailExistence()) {
+      Alert.alert ("HAVE LIAO")
+    }
+    else {
+      const { user, error} = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        
+      })
+      if (error) Alert.alert(error.message) 
+      else Alert.alert("Thank you for signing up", "Please check your email for authentication")
+    }
     setLoading(false)
   }
 
@@ -41,7 +65,7 @@ export default function SignupScreen({navigation}) {
           placeholder="Password"
           autoCapitalize={'none'}
         />
-      </View>
+      </View> 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity onPress={() => signUpWithEmail()} style = {styles.signup_button}>
           <Text> Create an account</Text>
