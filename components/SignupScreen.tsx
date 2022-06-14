@@ -7,8 +7,6 @@ export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-<<<<<<< Updated upstream
-=======
   
   async function checkEmailExistence(){
     let { data, error, status} = await supabase
@@ -42,18 +40,9 @@ export default function SignupScreen({navigation}) {
       else Alert.alert("Thank you for signing up", "Please check your email for authentication")
     }
   }
->>>>>>> Stashed changes
 
   async function signUpWithEmailasVendor() {
     setLoading(true)
-<<<<<<< Updated upstream
-    const { user, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
-
-    if (error) Alert.alert(error.message)
-=======
     if (await checkEmailExistence()) {
       Alert.alert ("HAVE LIAO")
     }
@@ -71,7 +60,6 @@ export default function SignupScreen({navigation}) {
     .update({vendor: true})
     .eq("email",email)
     .single();
->>>>>>> Stashed changes
     setLoading(false)
   }
 

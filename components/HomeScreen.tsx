@@ -1,5 +1,5 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, BackHandler} from 'react-native';
+import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
@@ -17,6 +17,17 @@ export default function HomeScreen({ navigation }) {
   const [value, setValue] = useState()
   function updateSearch(value) {}
   
+  //To disable back button
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <View style={styles.container}>    
       <View style={styles.head}>

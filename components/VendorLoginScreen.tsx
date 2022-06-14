@@ -16,7 +16,6 @@ export default function UserLoginScreen({navigation}) {
     .eq("email", email)
     .single();
 
-    console.log(data)
     if (data.vendor == false) {
       return true;
     }
