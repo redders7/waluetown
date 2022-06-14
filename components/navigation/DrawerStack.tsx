@@ -28,24 +28,7 @@ function App() {
       setSession(session)
     })
   }, [])
-
-  /* trying to figure out how to disable back button*/
-  // const route = useRoute(); 
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const onBackPress = () => {
-  //       if (route.name=="Home") {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     };
-  //     BackHandler.addEventListener('hardwareBackPress', onBackPress);
-  //     return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-  //   }, [route]),
-  // );
-
+  
   return (
     <Drawer.Navigator 
     drawerContent={props=> <CustomDrawer {...props}/>}

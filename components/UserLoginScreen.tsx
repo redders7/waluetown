@@ -4,11 +4,26 @@ import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import { NavigationRouteContext } from '@react-navigation/native'
 
-export default function LoginScreen({navigation}) {
+export default function UserLoginScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
+  async function notaUser() {
+    const {data, error} = await supabase
+    .from("users")
+    .select("vendor")
+    .eq("email", email)
+    .single();
+
+    if (data.vendor == true) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
   async function signInWithEmail() {
     setLoading(true)
     const { user, error } = await supabase.auth.signIn({
@@ -17,6 +32,7 @@ export default function LoginScreen({navigation}) {
     })
 
     if (error) Alert.alert(error.message)
+    else if (await notaUser()) Alert.alert("Not a user")
     else navigation.navigate("App");
     setLoading(false) 
   }
