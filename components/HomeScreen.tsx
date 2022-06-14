@@ -10,7 +10,8 @@ import fav from '../assets/Categories.png'
 import sushi from '../assets/sushi.png'
 import {Link} from 'react-scroll';
 import { Header } from 'react-native-elements';
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar';
+import VendorForm from './VendorForm';
 
 
 export default function HomeScreen({ navigation }) {
@@ -26,6 +27,7 @@ export default function HomeScreen({ navigation }) {
             height: Dimensions.get("window").width * 0.2,
             resizeMode: "contain",
           }} />
+          <VendorForm />
         </TouchableOpacity>
         <TouchableOpacity> 
           <Image source={cart} resizeMode="contain" style={{
