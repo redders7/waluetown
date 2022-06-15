@@ -27,7 +27,6 @@ export default function HomeScreen({ navigation }) {
             height: Dimensions.get("window").width * 0.2,
             resizeMode: "contain",
           }} />
-          <VendorForm />
         </TouchableOpacity>
         <TouchableOpacity> 
           <Image source={cart} resizeMode="contain" style={{

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
-import { NavigationRouteContext } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 export default function UserLoginScreen({navigation}) {
   const [email, setEmail] = useState('')
@@ -16,7 +17,6 @@ export default function UserLoginScreen({navigation}) {
     .eq("email", email)
     .single();
 
-    console.log(data)
     if (data.vendor == false) {
       return true;
     }
@@ -34,9 +34,9 @@ export default function UserLoginScreen({navigation}) {
 
     if (error) Alert.alert(error.message)
     else if (await notaVendor()) Alert.alert("Not a vendor")
-    else navigation.navigate("VendorPage");
+    else navigation.navigate('VendorPage', {email: email});
     setLoading(false) 
-  }
+  } 
 
   return (
     <View style = {styles.container}>

@@ -1,5 +1,5 @@
 import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView} from 'react-native';
-import { NavigationContainer, PrivateValueStore } from '@react-navigation/native';
+import { NavigationContainer, PrivateValueStore, NavigationRouteContext, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
@@ -10,29 +10,32 @@ import SearchBar from './SearchBar'
 import { Formik, FieldArray } from 'formik';
 import { TextInput } from 'react-native-gesture-handler';
 import { isPropertySignature } from 'typescript';
+import ShopPage from './Shop';
 
-const createItem = () => ({
-  text: ''
-});
-export default function VendorForm () {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
+
+export default function VendorForm ({route, navigation}) {
     const [items, addItems] = useState('');
-  
+    const {email} = route.params;
     return (
       <View style={styles.container}>
         <Formik
-          initialValues={{name: '', address: '', items: ['']}}
-          onSubmit={(values) => {
-                console.log(values)    
-          }}>
+          initialValues={{name: '', address: '', postalcode: '', items: ['']}}
+          onSubmit={ async (values) => {
+            console.log(email)
+            const { data, error } = await supabase
+            .from('users')
+            .update([
+              { shop_name: values.name, shop_address: values.address, shop_postalcode: values.postalcode}])
+            .eq('email',  email)
+          }
+          }>
           {(formikprops) =>(
             <View>
               <Text style={styles.header}>Shop Name</Text>
               <TextInput
                 style={styles.input}
                 placeholder = 'Shop Name'
-                onChangeText={formikprops.handleChange('name')}
+                onChangeText={formikprops.handleChange('Name')}
                 value={formikprops.values.name}
                 />
                 <Text style={styles.header}>Shop Address</Text>
@@ -40,8 +43,15 @@ export default function VendorForm () {
                 multiline
                 style={styles.input}
                 placeholder = 'Shop Address'
-                onChangeText={formikprops.handleChange('address')}
+                onChangeText={formikprops.handleChange('Address')}
                 value={formikprops.values.address}
+                />
+                <Text style={styles.header}>Postal Code</Text>
+                <TextInput
+                style={styles.input}
+                placeholder = 'Postal Code'
+                onChangeText={formikprops.handleChange('Postal Code')}
+                value={formikprops.values.postalcode}
                 />
 {/*                 
                 <FieldArray name='menu'>
