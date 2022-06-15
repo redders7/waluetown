@@ -8,7 +8,7 @@ import { setupURLPolyfill } from 'react-native-url-polyfill';
 import { parseJsonText } from 'typescript';
 
 
-export default function ShopPage() {
+export default function ShopPage({navigation}) {
     const [name, setName] = useState({shop: "", stock: 0})
     const getAllQuantity = async () => {
         let { data, error } = await supabase.from('shop2').select('*').eq('shop_id','1')
@@ -27,7 +27,7 @@ export default function ShopPage() {
             <Image source = {require('../assets/sushiexpress.png')} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
         </View>
         <View>
-            <TouchableOpacity onPress={() => {Alert.alert("Eh don't worry", "Google maps will appear here to guide you")}}>
+            <TouchableOpacity onPress={() => {navigation.navigate("Map")}}>
             <Text style = {{alignSelf: 'center', marginVertical: 20, fontFamily : 'sans-serif-condensed', textDecorationLine: 'underline'}}>
                 How do I get here?
             </Text>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         textAlign: 'center',
         textAlignVertical: 'center',
+        marginTop: 80
     }
 })
 

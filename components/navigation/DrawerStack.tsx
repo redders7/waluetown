@@ -34,7 +34,7 @@ function App() {
     drawerContent={props=> <CustomDrawer {...props}/>}
     screenOptions={{drawerLabelStyle: {marginLeft: -15, fontFamily: 'sans-serif-medium'},  drawerActiveBackgroundColor: '#f0e9d3', drawerActiveTintColor: '#000'}}>
         <Drawer.Screen name="HomeStack" component={HomeStack} options={{
-          drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
+          title: 'Home', headerTransparent: true, drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
         }} />
         <Drawer.Screen name="Account" component = {Account} options={{
           drawerIcon: ({color}) => (<Ionicons name = "person-outline" size = {22} color ={color}/>)
