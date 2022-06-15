@@ -33,7 +33,7 @@ export default function UserLoginScreen({navigation}) {
 
     if (error) Alert.alert(error.message)
     else if (await notaVendor()) Alert.alert("Not a vendor")
-    else navigation.navigate("VendorPage");
+    else navigation.navigate("VendorPage", {params: {email: email}});
     setLoading(false) 
   }
 

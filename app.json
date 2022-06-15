@@ -25,7 +25,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.lahdalpiit.waluetown"
+      "package": "com.lahdalpiit.waluetown",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBGKdNSuRq87Rkl1OzV0AXm6eIUnerH_go"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
