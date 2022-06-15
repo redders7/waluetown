@@ -15,6 +15,11 @@ export default function ShopPage() {
         var foo = Number.parseInt(data[0].quantity)
         setName({shop: data[0].shop_name, stock: foo})
       }
+    const { publicURL, error } = supabase
+        .storage
+        .from('shop-logos')
+        .getPublicUrl('sushiexpress.png')
+        
     useEffect(() => {
         getAllQuantity();
     },[]);
@@ -24,8 +29,8 @@ export default function ShopPage() {
             {name.shop}
         </Text>
         <View>
-            <Image source = {require('../assets/sushiexpress.png')} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
-        </View>
+            <Image source = {{uri: publicURL}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
+        </View> 
         <View>
             <TouchableOpacity onPress={() => {Alert.alert("Eh don't worry", "Google maps will appear here to guide you")}}>
             <Text style = {{alignSelf: 'center', marginVertical: 20, fontFamily : 'sans-serif-condensed', textDecorationLine: 'underline'}}>
