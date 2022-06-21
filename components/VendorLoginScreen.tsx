@@ -9,6 +9,7 @@ export default function UserLoginScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [vendorID, setID] = useState('')
 
   async function notaVendor() {
     let {data, error} = await supabase

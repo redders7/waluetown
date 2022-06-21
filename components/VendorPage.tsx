@@ -9,27 +9,34 @@ import { Header } from 'react-native-elements';
 import SearchBar from './SearchBar'
 import { Formik, FieldArray, Form, Field } from 'formik';
 import { TextInput } from 'react-native-gesture-handler';
-import { isPropertySignature } from 'typescript';
+import { idText, isPropertySignature } from 'typescript';
 import ShopPage from './Shop';
 
 // New Vendors Sign up form
-
+const createItem = () => ({
+  quantity: 0,
+  text: ''
+});
 export default function DetailsScreen({route}) {
   const [menuitems, addItems] = useState('');
+  const [quantity, addQuantity] = useState('');
   const {email} = route.params;
+  
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{name: '', address: '', postalcode: '', contact: '', closing:'', items: ['']}}
+        initialValues={{name: '', address: '', postalcode: '', contact: '', items: ['']}}
         onSubmit={ async (values) => {
           console.log(values)
+          console.log(menuitems)
           const { data, error } = await supabase
           .from('users')
           .update([
-            { shop_name: values.name, shop_address: values.address, shop_postalcode: values.postalcode, contact: values.contact}])
+            { shop_name: values.name, shop_address: values.address, shop_postalcode: values.postalcode, contact: values.contact, item1: menuitems, item1_quantity: quantity}])
           .eq('email',  email)
-        }
-        }>
+
+          Alert.alert("Success", "Shop details updated")
+        }}>
         {(formikprops) =>(
           <View>
             <Text style={styles.header}>Shop Name</Text>
@@ -64,8 +71,36 @@ export default function DetailsScreen({route}) {
               onChangeText={formikprops.handleChange('contact')}
               />
 
+              <Text style={styles.header}>Item 1</Text>
+                  <TextInput
+                  style={styles.input}
+                      placeholder='Item'
+                      onChangeText={addItems}
+                      value={menuitems}
+                  />
+                  
+              <Text style={styles.header}>Item 1 Quantity</Text>
+                  <TextInput
+                  style={styles.input}
+                      placeholder='Quantity'
+                      onChangeText={addQuantity}
+                      value={quantity}
+                  />
+
+              {/* <Button onPress={() => formikprops.setFieldValue('items', [formikprops.values.items, createItem()])} title="Add Item" /> */} 
+              {/* {formikprops.values.items.map( (item, index) => (
+                <Text style={styles.word} key={index}>{item}</Text>
+              ))}
+              <View style={styles.items}>
+                <TextInput
+                  style={styles.input}
+                  placeholder='Item'
+                  />
+              </View> */}
+
               <View style={styles.padding} />
               <Button  title='submit' color='maroon' onPress={formikprops.handleSubmit} />
+
           </View>
         )}
         </Formik>
@@ -92,7 +127,6 @@ const styles = StyleSheet.create({
    marginTop: 30,
   },
   header: {
-  marginTop: 15,
-  fontFamily:  'Roboto',
-  }
+    fontFamily:  'Roboto',
+  },
 });
