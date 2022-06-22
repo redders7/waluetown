@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { Alert, StyleSheet, View, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native'
 import { supabase } from '../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import { NavigationRouteContext } from '@react-navigation/native'
@@ -38,7 +38,7 @@ export default function UserLoginScreen({navigation}) {
   }
 
   return (
-    <View style = {styles.container}>
+    <KeyboardAvoidingView style = {styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
           label="Email"
@@ -65,7 +65,7 @@ export default function UserLoginScreen({navigation}) {
           <Text style = {{color: "white"}}> Sign in</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

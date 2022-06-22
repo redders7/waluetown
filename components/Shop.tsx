@@ -9,12 +9,15 @@ import { parseJsonText } from 'typescript';
 
 
 export default function ShopPage({navigation}) {
-    const [name, setName] = useState({shop: "", stock: 0})
+    const [name, setName] = useState({shop: "", stock: 0, desc: ""})
+
     const getAllQuantity = async () => {
-        let { data, error } = await supabase.from('shop2').select('*').eq('shop_id','1')
+        let { data, error } = await supabase.from('shop2').select('*').eq('id','1')
         var foo = Number.parseInt(data[0].quantity)
-        setName({shop: data[0].shop_name, stock: foo})
-      }
+        setName({shop: data[0].shop_name, stock: foo, desc: data[0].description})
+        console.log(data)
+    }
+
     const { publicURL, error } = supabase
         .storage
         .from('shop-logos')
@@ -23,6 +26,7 @@ export default function ShopPage({navigation}) {
     useEffect(() => {
         getAllQuantity();
     },[]);
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
@@ -39,7 +43,7 @@ export default function ShopPage({navigation}) {
             </TouchableOpacity>
         </View>
         <View>
-            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity left: " + name.stock)}}>
+            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", name.desc + "\n\n" + "Quantity left: " + name.stock)}}>
                 <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
             </TouchableOpacity>
         </View>
