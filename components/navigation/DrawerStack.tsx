@@ -28,30 +28,13 @@ function App() {
       setSession(session)
     })
   }, [])
-
-  /* trying to figure out how to disable back button*/
-  // const route = useRoute(); 
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const onBackPress = () => {
-  //       if (route.name=="Home") {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     };
-  //     BackHandler.addEventListener('hardwareBackPress', onBackPress);
-  //     return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-  //   }, [route]),
-  // );
-
+  
   return (
     <Drawer.Navigator 
     drawerContent={props=> <CustomDrawer {...props}/>}
     screenOptions={{drawerLabelStyle: {marginLeft: -15, fontFamily: 'sans-serif-medium'},  drawerActiveBackgroundColor: '#f0e9d3', drawerActiveTintColor: '#000'}}>
         <Drawer.Screen name="HomeStack" component={HomeStack} options={{
-          drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
+          title: 'Home', headerTransparent: true, drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
         }} />
         <Drawer.Screen name="Account" component = {Account} options={{
           drawerIcon: ({color}) => (<Ionicons name = "person-outline" size = {22} color ={color}/>)

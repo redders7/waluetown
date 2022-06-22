@@ -25,8 +25,17 @@ export default function SignupScreen({navigation}) {
     }
   }
 
+    if (error && status !== 406) {
+        throw error;
+    }
+    if (data) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-  async function signUpWithEmail() {
+  async function signUpWithEmailasUser() {
     setLoading(true)
     if (await checkEmailExistence()) {
       Alert.alert ("HAVE LIAO")
@@ -40,6 +49,28 @@ export default function SignupScreen({navigation}) {
       if (error) Alert.alert(error.message) 
       else Alert.alert("Thank you for signing up", "Please check your email for authentication")
     }
+  }
+
+  async function signUpWithEmailasVendor() {
+    setLoading(true)
+    if (await checkEmailExistence()) {
+      Alert.alert ("HAVE LIAO")
+    }
+    else {
+      const { user, error} = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        
+      })
+      if (error) Alert.alert(error.message) 
+      else Alert.alert("Thank you for signing up", "Please check your email for authentication")
+    }
+    const { data, error} = await supabase
+    .from("users")
+    .update({vendor: true})
+    .eq("email",email)
+    .single();
+
     setLoading(false)
   }
 
@@ -67,8 +98,13 @@ export default function SignupScreen({navigation}) {
         />
       </View> 
       <View style = {{alignItems: 'center'}}>
-        <TouchableOpacity onPress={() => signUpWithEmail()} style = {styles.signup_button}>
-          <Text> Create an account</Text>
+        <TouchableOpacity onPress={() => signUpWithEmailasUser()} style = {styles.signup_button}>
+          <Text> Create an account as User</Text>
+        </TouchableOpacity>
+      </View>
+      <View style = {{alignItems: 'center', marginTop: 60}}>
+        <TouchableOpacity onPress={() => signUpWithEmailasVendor()} style = {styles.signupvendor_button}>
+          <Text> Create an account as Vendor</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -101,5 +137,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'black',
     borderWidth: 1
+},
+signupvendor_button: {
+  alignItems: "center",
+  justifyContent: "center",
+  padding: 10,
+  marginTop: 50,
+  marginBottom: -150,
+  marginHorizontal: 110,
+  backgroundColor: "#CAB69D",
+  width: 250,
+  borderRadius: 20,
+  borderColor: 'black',
+  borderWidth: 1
 }
 })

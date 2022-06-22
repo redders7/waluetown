@@ -4,6 +4,7 @@ import React from 'react';
 import { supabase } from '../../lib/supabase'
 import HomeScreen from '../HomeScreen'
 import Shop from '../Shop'
+import Map from '../Map'
 import { NavigationContainer, useRoute, useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -26,27 +27,11 @@ function App() {
     })
   }, [])
 
-  /* trying to figure out how to disable back button*/
-  // const route = useRoute(); 
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const onBackPress = () => {
-  //       if (route.name=="Home") {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     };
-  //     BackHandler.addEventListener('hardwareBackPress', onBackPress);
-  //     return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-  //   }, [route]),
-  // );
-
   return (
     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
     <Stack.Screen name="Home" component = {HomeScreen} />
     <Stack.Screen name = "Shop" component = {Shop} />
+    <Stack.Screen name = "Map" component = {Map} />
     </Stack.Navigator>
   );
 }   

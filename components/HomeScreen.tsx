@@ -1,4 +1,4 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView} from 'react-native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, BackHandler} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
@@ -13,10 +13,22 @@ import { Header } from 'react-native-elements';
 import SearchBar from './SearchBar'
 import Favourites from './FavouritesScrollBar'
 
+
 export default function HomeScreen({ navigation }) {
   const [value, setValue] = useState()
   function updateSearch(value) {}
   
+  //To disable back button
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <View style={styles.container}>    
       <View style={styles.head}>
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
     paddingBottom: 80,
     alignContent: "center",
     flexDirection: "row",
-    paddingTop: 10
+    paddingTop: 80
   },
   container: {
     flex: 1,
