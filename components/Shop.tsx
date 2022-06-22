@@ -5,18 +5,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { Icon } from 'react-native-elements';
 import { setupURLPolyfill } from 'react-native-url-polyfill';
-import { parseJsonText } from 'typescript';
+import { isJSDocNamepathType, parseJsonText } from 'typescript';
 
-
-export default function ShopPage({navigation}) {
-    const [name, setName] = useState({shop: "", stock: 0, desc: ""})
-
-    const getAllQuantity = async () => {
-        let { data, error } = await supabase.from('shop2').select('*').eq('id','1')
-        var foo = Number.parseInt(data[0].quantity)
-        setName({shop: data[0].shop_name, stock: foo, desc: data[0].description})
-        console.log(data)
-    }
+export default function ShopPage({route, navigation}) {
+    const [name, setName] = useState([])
+    const {id} = route.params
+    async function getAllQuantity() {
+        let { data, error } = await supabase.from('shop2').select('*').eq('id', id)
+        setName(data)
+      }
 
     const { publicURL, error } = supabase
         .storage
@@ -30,7 +27,7 @@ export default function ShopPage({navigation}) {
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
-            {name.shop}
+            {!!name && name.length>0 && name[0].shop_name}
         </Text>
         <View>
             <Image source = {{uri: publicURL}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
@@ -43,7 +40,9 @@ export default function ShopPage({navigation}) {
             </TouchableOpacity>
         </View>
         <View>
-            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", name.desc + "\n\n" + "Quantity left: " + name.stock)}}>
+
+            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity left: " + name[0].quantity)}}>
+
                 <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
             </TouchableOpacity>
         </View>
