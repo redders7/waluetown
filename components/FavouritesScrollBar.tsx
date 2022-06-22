@@ -9,6 +9,6 @@ export default function FavouritesScrollBar(props) {
             <View style = {{paddingLeft: 10, marginTop: 20}}>
                 <Text style = {{ fontSize: 15, fontWeight: '500'}}>{props.shop}</Text>
             </View>
-        </View>
+        </View> 
     );
 }
