@@ -7,7 +7,6 @@ import { Icon } from 'react-native-elements';
 import { setupURLPolyfill } from 'react-native-url-polyfill';
 import { isJSDocNamepathType, parseJsonText } from 'typescript';
 
-
 export default function ShopPage({route, navigation}) {
     const [name, setName] = useState([])
     const {id} = route.params
@@ -15,6 +14,7 @@ export default function ShopPage({route, navigation}) {
         let { data, error } = await supabase.from('shop2').select('*').eq('id', id)
         setName(data)
       }
+
     const { publicURL, error } = supabase
         .storage
         .from('shop-logos')
@@ -24,7 +24,6 @@ export default function ShopPage({route, navigation}) {
         getAllQuantity();
     },[]);
 
-    console.log(name)
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
@@ -41,7 +40,9 @@ export default function ShopPage({route, navigation}) {
             </TouchableOpacity>
         </View>
         <View>
+
             <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity left: " + name[0].quantity)}}>
+
                 <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
             </TouchableOpacity>
         </View>
