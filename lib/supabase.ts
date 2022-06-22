@@ -12,4 +12,11 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   detectSessionInUrl: false,
 });
 
-export {supabase};
+async function getShopData(){
+  let { data: shop2, error } = await supabase
+  .from('shop2')
+  .select('*')
+  return {shop2, error}
+}
+
+export {supabase, getShopData};

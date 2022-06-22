@@ -26,7 +26,6 @@ export default function SignupScreen({navigation}) {
   }
 
 
-
   async function signUpWithEmailasUser() {
     setLoading(true)
     if (await checkEmailExistence()) {
