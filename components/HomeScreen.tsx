@@ -1,5 +1,5 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, BackHandler} from 'react-native';
-import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, BackHandler} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
@@ -10,8 +10,8 @@ import fav from '../assets/Categories.png'
 import sushi from '../assets/sushi.png'
 import {Link} from 'react-scroll';
 import { Header } from 'react-native-elements';
-import SearchBar from './SearchBar';
-import VendorForm from './VendorForm';
+import SearchBar from './SearchBar'
+import Favourites from './FavouritesScrollBar'
 
 
 export default function HomeScreen({ navigation }) {
@@ -54,12 +54,21 @@ export default function HomeScreen({ navigation }) {
       </View>
 
       <View style={styles.favourites}>
-        <Text>Your Favourites</Text>
-        <Image source={fav} resizeMode="contain" style={{
-          paddingBottom: 50,
-            width: Dimensions.get("window").width * 0.8,
-          }} />
-        <Text> Nearby Restaurants</Text>
+        <ScrollView scrollEventThrottle={16}>
+          <View>
+            <Text style = {{fontSize: 24, fontWeight: '700', paddingHorizontal: -20, }}>
+              Your Favourites
+            </Text>
+            <View style={{height: 200, marginTop: 20, marginLeft: -20}}> 
+              <ScrollView horizontal = {true} showsHorizontalScrollIndicator = {false}>
+                <Favourites imageUri = {require('../assets/sushiexpress.png')} shop = "Sushi Express"/>
+                <Favourites imageUri = {require('../assets/sushiexpress.png')} shop = "Sushi Express"/>
+                <Favourites imageUri = {require('../assets/sushiexpress.png')} shop = "Sushi Express"/>
+              </ScrollView>
+            </View>
+          </View>
+        </ScrollView>
+        <Text style = {{fontSize: 24, fontWeight: '700', paddingHorizontal: -20, }}> Nearby Restaurants</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
           <Image source={sushi} resizeMode="contain" style={{
             paddingBottom: 50,

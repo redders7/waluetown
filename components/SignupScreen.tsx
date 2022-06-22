@@ -25,6 +25,16 @@ export default function SignupScreen({navigation}) {
     }
   }
 
+    if (error && status !== 406) {
+        throw error;
+    }
+    if (data) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   async function signUpWithEmailasUser() {
     setLoading(true)
     if (await checkEmailExistence()) {
@@ -60,6 +70,7 @@ export default function SignupScreen({navigation}) {
     .update({vendor: true})
     .eq("email",email)
     .single();
+
     setLoading(false)
   }
 
@@ -85,7 +96,7 @@ export default function SignupScreen({navigation}) {
           placeholder="Password"
           autoCapitalize={'none'}
         />
-      </View>
+      </View> 
       <View style = {{alignItems: 'center'}}>
         <TouchableOpacity onPress={() => signUpWithEmailasUser()} style = {styles.signup_button}>
           <Text> Create an account as User</Text>
