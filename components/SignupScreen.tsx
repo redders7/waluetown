@@ -25,15 +25,7 @@ export default function SignupScreen({navigation}) {
     }
   }
 
-    if (error && status !== 406) {
-        throw error;
-    }
-    if (data) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 
   async function signUpWithEmailasUser() {
     setLoading(true)

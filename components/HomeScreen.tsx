@@ -1,5 +1,5 @@
 import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, BackHandler} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
