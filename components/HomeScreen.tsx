@@ -129,10 +129,8 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   nearby: {
-    flex: 12,
+    flex: 0.45,
     paddingLeft: 20,
-
-
   },
   flatlist: {
     flex: 1,
@@ -147,7 +145,6 @@ const styles = StyleSheet.create({
     borderColor: '#dddddd', 
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
     marginHorizontal: 15,
     marginVertical: 10,
   },
@@ -156,10 +153,10 @@ const styles = StyleSheet.create({
   },
   head: {
     flex: .1,
-    paddingBottom: 80,
+    flexDirection: 'row',
     alignContent: "center",
-    flexDirection: "row",
-    paddingTop: 80
+    justifyContent: 'center',
+    paddingTop: 80,
   },
   container: {
     flex: 1,
@@ -173,13 +170,14 @@ const styles = StyleSheet.create({
     paddingLeft: 100,
   },
   favourites: {
-    flex: 7,
+    flex: 0.3,
     paddingLeft: 20,
-    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: 'flex-start',
     alignContent: 'flex-start',
   },
   searchbar: {
-    flex: 1,
+    flex: 0.1,
     alignItems: 'center',
   },
 });
