@@ -29,7 +29,7 @@ export default function SignupScreen({navigation}) {
   async function signUpWithEmailasUser() {
     setLoading(true)
     if (await checkEmailExistence()) {
-      Alert.alert ("HAVE LIAO")
+      Alert.alert ("Email is already used!", "Please sign in")
     }
     else {
       const { user, error} = await supabase.auth.signUp({
@@ -45,7 +45,7 @@ export default function SignupScreen({navigation}) {
   async function signUpWithEmailasVendor() {
     setLoading(true)
     if (await checkEmailExistence()) {
-      Alert.alert ("HAVE LIAO")
+      Alert.alert ("Email is already used!", "Please sign in")
     }
     else {
       const { user, error} = await supabase.auth.signUp({
