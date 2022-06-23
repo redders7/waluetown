@@ -20,7 +20,7 @@ export default function CustomDrawer(props) {
             {...props}
             contentContainerStyle={{backgroundColor: "#d2b48c"}}>
                 <View>
-                    <Text style = {{fontSize: 18, fontFamily: 'sans-serif-medium',marginLeft: 10, marginTop: 50, marginBottom: -10}}>Xiao Ming</Text>
+                    <Text style = {{fontSize: 18, fontFamily: 'sans-serif-medium',marginLeft: 10, marginTop: 50, marginBottom: -10}}>Hello</Text>
                 </View>
                 <View style = {{flex: 1, backgroundColor: '#ffffff', marginTop: 20}}>
                     <DrawerItemList {...props}/>

@@ -5,21 +5,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { Icon } from 'react-native-elements';
 import { setupURLPolyfill } from 'react-native-url-polyfill';
-import { isJSDocNamepathType, parseJsonText } from 'typescript';
+import { isJSDocNamepathType, isTemplateExpression, parseJsonText } from 'typescript';
 
 export default function ShopPage({route, navigation}) {
     const [name, setName] = useState([])
-    const {id} = route.params
+    const {id, image} = route.params
     async function getAllQuantity() {
         let { data, error } = await supabase.from('shop2').select('*').eq('id', id)
         setName(data)
       }
 
-    const { publicURL, error } = supabase
-        .storage
-        .from('shop-logos')
-        .getPublicUrl('sushiexpress.png')
-        
     useEffect(() => {
         getAllQuantity();
     },[]);
@@ -30,7 +25,7 @@ export default function ShopPage({route, navigation}) {
             {!!name && name.length>0 && name[0].shop_name}
         </Text>
         <View>
-            <Image source = {{uri: publicURL}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
+            <Image source = {{uri: image}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
         </View> 
         <View>
             <TouchableOpacity onPress={() => {navigation.navigate("Map")}}>
@@ -39,12 +34,18 @@ export default function ShopPage({route, navigation}) {
             </Text>
             </TouchableOpacity>
         </View>
-        <View>
-
-            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", "Quantity left: " + name[0].quantity)}}>
-
-                <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} />
+        <View style = {{alignItems: 'center'}}>
+            <View style = {{borderWidth: 1, width: 300}}>
+            <TouchableOpacity onPress={() => {Alert.alert("Hurry!", name[0].description + "\n" + "Quantity left: " + name[0].quantity)}}>
+                <Text style = {{fontSize: 25, textAlign: 'center'}}>
+                    {!!name && name.length>0 && name[0].item_name}
+                </Text>
+                <Text style = {{marginTop: 10, fontSize: 20, textAlign: 'center'}}>
+                    ${!!name && name.length>0 && name[0].price}
+                </Text>
+                {/* <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} /> */}
             </TouchableOpacity>
+            </View>
         </View>
         
       </View>

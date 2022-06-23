@@ -29,11 +29,33 @@ export default function HomeScreen({ navigation }) {
     loadAllShopData();
     }, []);
 
-  const { publicURL, error } = supabase
+  const { publicURL:sushiexpress, error:sushierror } = supabase
   .storage
   .from('shop-logos')
-  .getPublicUrl('sushiexpress.png')  
-  
+  .getPublicUrl('Sushi Express')
+
+  const { publicURL:fourleaves, error:fourleaveserror } = supabase
+  .storage
+  .from('shop-logos')
+  .getPublicUrl('Four Leaves')
+
+  const { publicURL:breadtalk, error:breadtalkerror } = supabase
+  .storage
+  .from('shop-logos')
+  .getPublicUrl('BreadTalk')
+
+  const { publicURL:beechenghiang, error:beechenghiangerror } = supabase
+  .storage
+  .from('shop-logos')
+  .getPublicUrl('BeeChengHiang')
+
+  const [logos, setLogos] = useState([
+    {image: sushiexpress, id: '1'},
+    {image: breadtalk, id: '2'},
+    {image: fourleaves, id: '3'},
+    {image: beechenghiang, id: '4'},
+  ])
+
   //To disable back button
   useFocusEffect(
     React.useCallback(() => {
@@ -55,43 +77,39 @@ export default function HomeScreen({ navigation }) {
             resizeMode: "contain",
           }} />
         </TouchableOpacity>
-        <TouchableOpacity> 
-          <Image source={cart} resizeMode="contain" style={{
-            width: Dimensions.get("window").width * 0.15,
-            height: Dimensions.get("window").width * 0.15,
-            paddingLeft: 400,
-            resizeMode: "contain",
-          }} />
-        </TouchableOpacity>
       </View>
 
       <View style= {styles.searchbar}>
         <SearchBar value = {value} updateSearch = {updateSearch}/>
       </View>
 
-      <View style={styles.favourites}>
-        {/* <ScrollView scrollEventThrottle={16}>
+      <View style = {styles.favourites}>
           <View>
             <Text style = {{fontSize: 24, fontWeight: '700', paddingHorizontal: -20, }}>
               Your Favourites
             </Text>
-            <View style={{height: 200, marginTop: 20, marginLeft: -20}}> 
-              <ScrollView horizontal = {true} showsHorizontalScrollIndicator = {false}>
-                <Favourites imageUri = {require('../assets/sushiexpress.png')} shop = {shopData[0].shop_name}/>
-                <Favourites imageUri = {require('../assets/sushiexpress.png')} data = {shopData}/>  
-                <Favourites imageUri = {require('../assets/sushiexpress.png')} data = {shopData}/>
-              </ScrollView>
+            <View style={{height: 180, marginTop: 10}}> 
+              <FlatList horizontal={true} keyExtractor={(item) => item.id} data = {shopData} 
+                renderItem={({item}) => (
+                <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
+                <View style={styles.shop}>
+                <View style = {styles.shopimage}><Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: logos[item.id-1].image}}/></View>
+                <Text style = {{fontSize: 15, marginBottom: 10}}>{item.shop_name}</Text>
+              </View>
+              </TouchableOpacity>)}/>
             </View>
           </View>
-        </ScrollView> */}
+        </View>
+
+        <View style = {styles.nearby}>
         <Text style = {{fontSize: 24, fontWeight: '700', }}> Nearby Stores</Text>
         <View style={styles.flatlist}>
         <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {shopData} 
         renderItem={({item}) => (
-        <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id})}>
+        <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
           <View style={styles.shop}>
-          <View style = {styles.shopimage}><Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: publicURL}}/></View>
-            <Text>{item.shop_name}</Text>
+          <View style = {styles.shopimage}><Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: logos[item.id-1].image}}/></View>
+            <Text style = {{fontSize: 15, marginBottom: 10}}>{item.shop_name}</Text>
             </View>
             </TouchableOpacity>)}/>
         </View>
@@ -103,12 +121,6 @@ export default function HomeScreen({ navigation }) {
           }} />
         </TouchableOpacity> */}
 
-{/* <View style={{height: 150, width: 150, borderWidth: 1, borderColor: '#dddddd', marginLeft: 20}}>
-            <Image source = {props.imageUri} style = {{flex: 1, width: null, height: 200, resizeMode: 'contain', marginTop: 0}}/>
-            <View style = {{paddingLeft: 10, marginTop: 20}}>
-                <Text style = {{ fontSize: 15, fontWeight: '500'}}>{props.shop}</Text>
-            </View>
-        </View>  */}
         
       </View>
     </View>
@@ -116,6 +128,12 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  nearby: {
+    flex: 12,
+    paddingLeft: 20,
+
+
+  },
   flatlist: {
     flex: 1,
     alignItems: "flex-start",
@@ -130,7 +148,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    paddingHorizontal: 20,
+    marginHorizontal: 15,
+    marginVertical: 10,
   },
   shopimage:{ 
     flex: 1,
@@ -154,8 +173,9 @@ const styles = StyleSheet.create({
     paddingLeft: 100,
   },
   favourites: {
-    flex: 10,
-    paddingLeft: 25,
+    flex: 7,
+    paddingLeft: 20,
+    paddingTop: 20,
     alignContent: 'flex-start',
   },
   searchbar: {
