@@ -37,7 +37,7 @@ export default function DetailsScreen({route}) {
           const { data: shop_data, error: shop_error } = await supabase
           .from('shop2')
           .update([
-            { shop_name: values.name, item_name: menuitems, description: values.description, price: values.price, quantity: values.quantity}])
+            { shop_name: values.name, item_name: menuitems, description: values.description, price: values.price, quantity: values.quantity, postalcode: values.postalcode}])
           .eq('owner_email',  email)
           Alert.alert("Success", "Shop details updated")
         }}>
