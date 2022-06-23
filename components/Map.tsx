@@ -33,6 +33,7 @@ export default function Map() {
     const destination = {latitude: 1.3143343982013442, longitude: 103.76511536367603,};
     return (
         <View style = {styles.container}>
+            <View>
             <MapView 
                 style = {styles.map}
                 initialRegion = {{
@@ -45,11 +46,9 @@ export default function Map() {
                 <Marker coordinate = {{latitude: destination.latitude, longitude: destination.longitude}} 
                 title = "Sushi Express" description = "Value Sushi" pinColor = "gold"></Marker>
                 <Marker coordinate = {{latitude: pin.latitude, longitude: pin.longitude}} 
-                title = "Your current location" description = "lmao"></Marker>               
+                title = "Your current location"></Marker>               
             </MapView>
-            <View style = {styles.text}>
-                <Text style = {{alignItems: 'center', justifyContent: 'center', fontWeight: "bold", fontSize: 15}}>Click on <Text style = {{color: "yellow", fontSize: 20}}>yellow marker</Text> then click here -> </Text>
-            </View> 
+            </View>           
         </View>
     )
 }
@@ -59,14 +58,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     text: {
-        flex: 0.2, 
-        position: 'absolute',
-        justifyContent: "center",
-        alignItems: 'center',
-        marginVertical: 810,
-        marginHorizontal: 0
-        
-
+         flex: 1,
+         marginVertical: 400,
     },
     map: {
         width: '100%',
