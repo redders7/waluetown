@@ -24,7 +24,7 @@ export default function DetailsScreen({route}) {
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{name: '', address: '', postalcode: '', contact: '', items: [''], description: '', price: '', quantity: 0}}
+        initialValues={{name: '', address: '', postalcode: '', latitude: '', longitude: '', contact: '', items: [''], description: '', price: '', quantity: 0}}
         onSubmit={ async (values) => {
           console.log(values)
           
@@ -37,7 +37,7 @@ export default function DetailsScreen({route}) {
           const { data: shop_data, error: shop_error } = await supabase
           .from('shop2')
           .update([
-            { shop_name: values.name, item_name: menuitems, description: values.description, price: values.price, quantity: values.quantity, postalcode: values.postalcode}])
+            { shop_name: values.name, item_name: menuitems, description: values.description, price: values.price, quantity: values.quantity, postalcode: values.postalcode, latitude: values.latitude, longitude: values.longitude}])
           .eq('owner_email',  email)
           Alert.alert("Success", "Shop details updated")
         }}>
@@ -66,6 +66,22 @@ export default function DetailsScreen({route}) {
               style={styles.input}
               placeholder = 'Postal Code'
               onChangeText={formikprops.handleChange('postalcode')}
+              returnKeyType='next'
+              />
+
+              <Text style={styles.header}>Latitude</Text>
+              <TextInput
+              style={styles.input}
+              placeholder = 'Latitude'
+              onChangeText={formikprops.handleChange('latitude')}
+              returnKeyType='next'
+              />
+
+              <Text style={styles.header}>Longitude</Text>
+              <TextInput
+              style={styles.input}
+              placeholder = 'Longitude'
+              onChangeText={formikprops.handleChange('longitude')}
               returnKeyType='next'
               />
 

@@ -6,9 +6,10 @@ import * as Location from 'expo-location';
 import { LocationSubscriber } from 'expo-location/build/LocationSubscribers';
  
 
-export default function Map() {
+export default function Map({route}) {
+    const {shop_name, latitude, longitude} = route.params;
     const [pin, setPin] = useState({
-        latitude: 1.3143343982013442, longitude: 103.76511536367603
+        latitude: latitude, longitude: longitude
     });
 
     useEffect(() => {
@@ -29,22 +30,23 @@ export default function Map() {
         })();
       }, []);
 
-    const origin = {latitude: pin.latitude, longitude: pin.longitude};
-    const destination = {latitude: 1.3143343982013442, longitude: 103.76511536367603,};
+    // const origin = {latitude: pin.latitude, longitude: pin.longitude};
+    const destination = {latitude: latitude, longitude: longitude};
     return (
         <View style = {styles.container}>
             <View>
             <MapView 
                 style = {styles.map}
-                initialRegion = {{
+                initialRegion = {!!latitude && {
                     latitude: (pin.latitude + destination.latitude)/2,
                     longitude: (pin.longitude + destination.longitude)/2,
-                    latitudeDelta: 0.02,
-                    longitudeDelta: 0.02,
+                    latitudeDelta: 0.1,
+                    longitudeDelta: 0.1,
                 }}
+                //!!name && name.length>0 &&
             >      
                 <Marker coordinate = {{latitude: destination.latitude, longitude: destination.longitude}} 
-                title = "Sushi Express" description = "Value Sushi" pinColor = "gold"></Marker>
+                title = {shop_name} pinColor = "gold"></Marker>
                 <Marker coordinate = {{latitude: pin.latitude, longitude: pin.longitude}} 
                 title = "Your current location"></Marker>               
             </MapView>

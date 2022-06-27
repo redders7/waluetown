@@ -28,7 +28,7 @@ export default function ShopPage({route, navigation}) {
             <Image source = {{uri: image}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
         </View> 
         <View>
-            <TouchableOpacity onPress={() => {navigation.navigate("Map")}}>
+            <TouchableOpacity onPress={() => {navigation.navigate("Map", {shop_name: name[0].shop_name, latitude: name[0].latitude, longitude: name[0].longitude})}}>
             <Text style = {{alignSelf: 'center', marginVertical: 20, fontFamily : 'sans-serif-condensed', textDecorationLine: 'underline'}}>
                 How do I get here?
             </Text>
