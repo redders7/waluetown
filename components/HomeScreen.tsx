@@ -12,12 +12,15 @@ import {Link} from 'react-scroll';
 import { Header } from 'react-native-elements';
 import SearchBar from './SearchBar'
 import Favourites from './FavouritesScrollBar'
-import {getShopData} from '../lib/supabase'
+import {getShopData, getUserFav, updateUserFav} from '../lib/supabase'
 import { FlipInEasyX } from 'react-native-reanimated';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function HomeScreen({ navigation }) {
   const [value, setValue] = useState()
   const [shopData, setShopData] = useState([])
+  const [userFav, setUserFav] = useState([])
+  const [updating, setUpdating] = useState(false);
   function updateSearch(value) {}  
 
   async function loadAllShopData() {
@@ -25,9 +28,29 @@ export default function HomeScreen({ navigation }) {
     setShopData(shop2);
   }
 
+  async function loadUserFav() {
+    const {favorites, error} = await getUserFav();
+    setUserFav(favorites.favorites);
+  }
+
+  async function changeHeart(shopName) {
+    //await loadUserFav();
+    const index = userFav.indexOf(shopName);
+    if (index > -1) { // only splice array when item is found
+      userFav.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    else {
+      userFav.push(shopName);
+    }
+    await updateUserFav(userFav);
+    setUserFav(userFav);
+    setUpdating(!updating);
+  }
+
   useEffect(() => {
     loadAllShopData();
-    }, []);
+    loadUserFav();
+  }, []);
 
   const { publicURL:sushiexpress, error:sushierror } = supabase
   .storage
@@ -90,10 +113,11 @@ export default function HomeScreen({ navigation }) {
             </Text>
             <View style={{height: 180, marginTop: 10}}> 
               <FlatList horizontal={true} keyExtractor={(item) => item.id} data = {shopData} 
-                renderItem={({item}) => (
+                renderItem={({item}) => (userFav.includes(item.shop_name) && 
                 <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
                 <View style={styles.shop}>
-                <View style = {styles.shopimage}><Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: logos[item.id-1].image}}/></View>
+                <View style = {styles.shopimage}>
+                <Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: logos[item.id-1].image}}/></View>
                 <Text style = {{fontSize: 15, marginBottom: 10}}>{item.shop_name}</Text>
               </View>
               </TouchableOpacity>)}/>
@@ -104,24 +128,18 @@ export default function HomeScreen({ navigation }) {
         <View style = {styles.nearby}>
         <Text style = {{fontSize: 24, fontWeight: '700', }}> Nearby Stores</Text>
         <View style={styles.flatlist}>
-        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {shopData} 
+        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {shopData} extraData={updating}
         renderItem={({item}) => (
         <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
           <View style={styles.shop}>
           <View style = {styles.shopimage}><Image style = {{width: 100, height: 100, alignSelf: 'center'}}source = {{uri: logos[item.id-1].image}}/></View>
-            <Text style = {{fontSize: 15, marginBottom: 10}}>{item.shop_name}</Text>
-            </View>
-            </TouchableOpacity>)}/>
-        </View>
-
-        {/* <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
-          <Image source={sushi} resizeMode="contain" style={{
-            paddingBottom: 50,
-              width: Dimensions.get("window").width * 0.85,
-          }} />
-        </TouchableOpacity> */}
-
-        
+            <Text style = {{fontSize: 15, marginBottom: 10, justifyContent: "flex-start"}}>{item.shop_name}</Text>
+            <TouchableOpacity onPress = {() => changeHeart(item.shop_name)}>
+              <Ionicons name={userFav.includes(item.shop_name) ? 'heart' : 'heart-outline'} size={20} color = {userFav.includes(item.shop_name) ? 'red' : 'black'}/>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>)}/>
+        </View>        
       </View>
     </View>
   );

@@ -39,7 +39,7 @@ function App() {
         <Drawer.Screen name="Account" component = {Account} options={{
           drawerIcon: ({color}) => (<Ionicons name = "person-outline" size = {22} color ={color}/>)
         }}/>
-        <Drawer.Screen name = "Favourites" component = {FavouritesScreen} options={{
+        <Drawer.Screen name = "Favourites" component = {FavouritesScreen} options={{ headerTransparent: true,
           drawerIcon: ({color}) => (<Ionicons name = "heart-outline" size = {22} color ={color}/>)
         }}/>
         <Drawer.Screen name = "Rewards" component = {RewardsScreen} options={{
