@@ -1,26 +1,23 @@
-import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, BackHandler, FlatList} from 'react-native';
+import {Alert, Text, Button, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, BackHandler, FlatList, TextInput, KeyboardAvoidingView} from 'react-native';
 import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from "react";
 import logo from '../assets/logo.png';
-import cart from '../assets/cart.png';
-import fav from '../assets/Categories.png'
-import sushi from '../assets/sushi.png'
-import {Link} from 'react-scroll';
-import { Header } from 'react-native-elements';
-import SearchBar from './SearchBar'
-import Favourites from './FavouritesScrollBar'
 import {getShopData, getUserFav, updateUserFav} from '../lib/supabase'
-import { FlipInEasyX } from 'react-native-reanimated';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Location from 'expo-location';
+import {getDistance} from 'geolib';
 
 export default function HomeScreen({ navigation }) {
   const [value, setValue] = useState()
   const [shopData, setShopData] = useState([])
   const [userFav, setUserFav] = useState([])
   const [updating, setUpdating] = useState(false);
+  const [pin, setPin] = useState({
+    latitude: 0, longitude: 0
+  });
+  const[newData, setNewData] = useState([]);
+
   function updateSearch(value) {}  
 
   async function loadAllShopData() {
@@ -46,6 +43,32 @@ export default function HomeScreen({ navigation }) {
     setUserFav(userFav);
     setUpdating(!updating);
   }
+
+  function searchName(input) {
+    let data = shopData;
+    let searchData = data.filter((item) => {
+      return item.shop_name.toLowerCase().includes(input.toLowerCase());
+    })
+    setNewData(searchData)
+  }
+  
+
+useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+
+      setPin({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    })();
+  }, []);
 
   useEffect(() => {
     loadAllShopData();
@@ -103,12 +126,17 @@ export default function HomeScreen({ navigation }) {
       </View>
 
       <View style= {styles.searchbar}>
-        <SearchBar value = {value} updateSearch = {updateSearch}/>
+        <View>
+          <Image source={require('../assets/search.png')} style = {styles.searchicon} resizeMode="contain"/>
+        </View>
+        <TextInput 
+          placeholder = "Search..."
+          onChangeText = {(input) => {searchName(input)}}/>
       </View>
 
       <View style = {styles.favourites}>
-          <View>
-            <Text style = {{fontSize: 24, fontWeight: '700', paddingHorizontal: -20, }}>
+          <View style = {{marginTop: 10}}>
+            <Text style = {{fontSize: 24, fontWeight: '700'}}>
               Your Favourites
             </Text>
             <View style={{height: 180, marginTop: 10}}> 
@@ -128,7 +156,10 @@ export default function HomeScreen({ navigation }) {
         <View style = {styles.nearby}>
         <Text style = {{fontSize: 24, fontWeight: '700', }}> Nearby Stores</Text>
         <View style={styles.flatlist}>
-        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {shopData} extraData={updating}
+        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {newData.sort((a, b) => 
+        getDistance({ latitude: pin.latitude, longitude: pin.longitude }, { latitude: a.latitude, longitude: a.longitude }) - 
+        getDistance({ latitude: pin.latitude, longitude: pin.longitude }, { latitude: b.latitude, longitude: b.longitude })
+      )} extraData={updating}
         renderItem={({item}) => (
         <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
           <View style={styles.shop}>
@@ -149,6 +180,8 @@ const styles = StyleSheet.create({
   nearby: {
     flex: 0.45,
     paddingLeft: 20,
+    justifyContent:'center',
+    alignItems: 'flex-start'
   },
   flatlist: {
     flex: 1,
@@ -180,6 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f0e9d3',
     flexDirection: "column",
+    alignItems: 'center'
   },
   button: {
     width: 300,
@@ -195,7 +229,15 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
   },
   searchbar: {
-    flex: 0.1,
-    alignItems: 'center',
+    backgroundColor: 'white',
+      width: '90%',
+      height: 40,
+      flexDirection: "row",
+      justifyContent: 'center',
+      alignItems: 'center',
   },
+  searchicon: {
+    width: Dimensions.get("window").width * 0.08,
+    height: Dimensions.get("window").width * 0.08,
+},
 });

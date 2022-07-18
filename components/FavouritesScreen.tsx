@@ -55,7 +55,7 @@ export default function FavouritesScreen({navigation}) {
   return (
     <View style = {styles.container}>
     <View style={styles.flatlist}>
-    <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {shopData} 
+    <FlatList keyExtractor={(item) => item.id} data = {shopData} 
     renderItem={({item}) => (userFav.includes(item.shop_name) && 
     <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
       <View style={styles.shop}>
@@ -70,7 +70,8 @@ export default function FavouritesScreen({navigation}) {
 const styles = StyleSheet.create({
   flatlist: {
     flex: 1,
-    marginTop: 100, 
+    marginTop: 100,
+    marginHorizontal: 120,
     alignItems: "flex-start",
     justifyContent: "center",
     flexDirection: "row",
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0e9d3',
-    flexDirection: "column",
   },
 
 });
