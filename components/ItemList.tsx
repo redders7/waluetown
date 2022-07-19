@@ -12,6 +12,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { idText, isPropertySignature } from 'typescript';
 import ShopPage from './Shop';
 import EditItems from './VendorItems';
+import Feather, { XCircle } from 'react-native-feather';
 
 export default function ItemsPage({route,navigation}) {
     const [items, setItems] = useState([])
@@ -20,27 +21,51 @@ export default function ItemsPage({route,navigation}) {
     async function getAllItems() {
         let { data, error } = await supabase.from('shop2').select('itemData').eq('owner_email', email).single()
         setItems(data.itemData)
-        console.log(items);
       }
 
     useEffect(() => {
         getAllItems();
     },[]);
 
+    async function deleteItem(index) {
+        setItems([
+            ...items.slice(0, index),
+            ...items.slice(index + 1, items.length)
+          ]);
+          const { data,error } = await supabase
+          .from('shop2')
+          .update({itemData: items})
+          .eq('owner_email', email)
+    } 
+
     return (
         <View style={styles.container}>
-            <View style = {{alignItems: 'center',paddingTop:30}}>
+            <View style = {{flex: 0.8, alignItems: 'center', justifyContent: 'center'}}>
             <FlatList numColumns={1} keyExtractor={(item) => item.id} data = {items} 
                 renderItem={({item,index}) => (
-                    <TouchableOpacity onPress={() => alert }>
+                    <TouchableOpacity onPress={() => {Alert.alert("Item Information", "Price: $" +item.price + "\n" + "Quantity left: " + item.quantity + "\n" + "Description: " + item.description,
+                    [
+                        {
+                          text: "Delete",
+                          onPress: () => deleteItem(index),
+                          style: "cancel",
+                        },
+                      ],
+                      {
+                        cancelable: true,
+                      })} }>
                         <Text style={styles.header}>Item {index+1}</Text>
-                        <Text style={styles.itemList}>{item.name}</Text>
-                    </TouchableOpacity>)}
-            />
-        </View>
+                        <Text style={styles.itemList}>{item.name} </Text>
+                    </TouchableOpacity>
+                    )}/>
+            </View>
+            
         <TouchableOpacity onPress={() => {navigation.navigate("EditItems", {email:email, itemData: items})}}>
-            <Text style = {{fontSize: 25, textAlign: 'center'}}>
-                Add Item 
+        <View style={styles.padding}>
+
+        </View>
+            <Text style = {{fontSize: 20, color: 'white' ,fontWeight: 'bold', textAlign: "auto",borderWidth:1, padding:5, borderColor: 'green', backgroundColor: 'green'}}>
+                 Add Item 
                 </Text>
             </TouchableOpacity>
         </View>
@@ -53,6 +78,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f0e9d3',
+    },
+    list: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     input :{
         flex: 0.12,

@@ -96,35 +96,6 @@ export default function DetailsScreen({route,navigation}) {
               placeholder = 'Contact Number'
               onChangeText={formikprops.handleChange('contact')}
               />
-
-              <Text style={styles.header}>Item 1</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Item'
-                      onChangeText={addItems}
-                      value={menuitems}
-                  />
-
-              <Text style={styles.header}>Item 1 Description</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Description'
-                      onChangeText={formikprops.handleChange('description')}
-                  />
-
-              <Text style={styles.header}>Item 1 Price</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Price'
-                      onChangeText={formikprops.handleChange('price')}
-                  />      
-
-              <Text style={styles.header}>Item 1 Quantity</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Quantity'
-                      onChangeText={formikprops.handleChange('quantity')}
-                  /> 
               
 
               {/* <Button onPress={() => formikprops.setFieldValue('items', [formikprops.values.items, createItem()])} title="Add Item" /> */} 
@@ -139,8 +110,9 @@ export default function DetailsScreen({route,navigation}) {
               </View> */}
 
               <View style={styles.padding} />
-              <Button  title='submit' color='maroon' onPress={formikprops.handleSubmit} />
-              <Button title='items' color='green' onPress={() => navigation.navigate("ItemsPage", {email:email})} />
+              <Button  title='update info' color='maroon' onPress={formikprops.handleSubmit} />
+              <View style={{padding:5}} />
+              <Button title='edit items' color='green' onPress={() => navigation.navigate("ItemsPage", {email:email})} />
           </View>
         )}
         </Formik>
@@ -150,7 +122,7 @@ export default function DetailsScreen({route,navigation}) {
 
 const styles = StyleSheet.create({
   input :{
-    flex: 0.11,
+    flex: 0.15,
     width: 325,
     paddingLeft: 10,
     borderWidth: 1,

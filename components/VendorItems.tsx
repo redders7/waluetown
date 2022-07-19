@@ -12,7 +12,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { idText, isPropertySignature } from 'typescript';
 import ShopPage from './Shop';
 
-export default function EditItems({route}) {
+export default function EditItems({route,navigation}) {
         const {itemData} = route.params
     return (
         <View style={styles.container}>
@@ -25,7 +25,7 @@ export default function EditItems({route}) {
                         .from('shop2')
                         .update({itemData: itemData})
                         .eq('owner_email',  route.params.email)
-                    console.log(error);
+                    navigation.navigate("ItemsPage", {email: route.params.email})
                 }}>
 
                 {(props) => (
