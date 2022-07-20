@@ -16,6 +16,7 @@ import Feather, { XCircle } from 'react-native-feather';
 
 export default function ItemsPage({route,navigation}) {
     const [items, setItems] = useState([])
+    const [updating, setUpdating] = useState(false)
     const {email} = route.params
 
     async function getAllItems() {
@@ -28,20 +29,19 @@ export default function ItemsPage({route,navigation}) {
     },[]);
 
     async function deleteItem(index) {
-        setItems([
-            ...items.slice(0, index),
-            ...items.slice(index + 1, items.length)
-          ]);
+        items.splice(index, 1)
+        setItems(items)
           const { data,error } = await supabase
           .from('shop2')
           .update({itemData: items})
           .eq('owner_email', email)
+        setUpdating(!updating)
     } 
 
     return (
         <View style={styles.container}>
             <View style = {{flex: 0.8, alignItems: 'center', justifyContent: 'center'}}>
-            <FlatList numColumns={1} keyExtractor={(item) => item.id} data = {items} 
+            <FlatList numColumns={1} keyExtractor={(item) => item.id} data = {items} extraData = {updating}
                 renderItem={({item,index}) => (
                     <TouchableOpacity onPress={() => {Alert.alert("Item Information", "Price: $" +item.price + "\n" + "Quantity left: " + item.quantity + "\n" + "Description: " + item.description,
                     [
