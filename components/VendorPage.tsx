@@ -3,7 +3,7 @@ import { NavigationContainer, PrivateValueStore, NavigationRouteContext, useRout
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { supabase } from '../lib/supabase';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from 'react-scroll';
 import { Header } from 'react-native-elements';
 import SearchBar from './SearchBar'
@@ -11,15 +11,20 @@ import { Formik, FieldArray, Form, Field } from 'formik';
 import { TextInput } from 'react-native-gesture-handler';
 import { idText, isPropertySignature } from 'typescript';
 import ShopPage from './Shop';
+import ItemsPage from './ItemList';
 
 // New Vendors Sign up form
 const createItem = () => ({
   quantity: 0,
   text: ''
 });
-export default function DetailsScreen({route}) {
+export default function DetailsScreen({route,navigation}) {
   const [menuitems, addItems] = useState('');
   const {email} = route.params;
+
+  useEffect(() => {
+    console.log(email)
+},[]);
   
   return (
     <View style={styles.container}>
@@ -69,7 +74,7 @@ export default function DetailsScreen({route}) {
               returnKeyType='next'
               />
 
-              <Text style={styles.header}>Latitude</Text>
+              {/* <Text style={styles.header}>Latitude</Text>
               <TextInput
               style={styles.input}
               placeholder = 'Latitude'
@@ -83,7 +88,7 @@ export default function DetailsScreen({route}) {
               placeholder = 'Longitude'
               onChangeText={formikprops.handleChange('longitude')}
               returnKeyType='next'
-              />
+              /> */}
 
               <Text style={styles.header}>Contact Number</Text>
               <TextInput
@@ -91,35 +96,6 @@ export default function DetailsScreen({route}) {
               placeholder = 'Contact Number'
               onChangeText={formikprops.handleChange('contact')}
               />
-
-              <Text style={styles.header}>Item 1</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Item'
-                      onChangeText={addItems}
-                      value={menuitems}
-                  />
-
-              <Text style={styles.header}>Item 1 Description</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Description'
-                      onChangeText={formikprops.handleChange('description')}
-                  />
-
-              <Text style={styles.header}>Item 1 Price</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Price'
-                      onChangeText={formikprops.handleChange('price')}
-                  />      
-
-              <Text style={styles.header}>Item 1 Quantity</Text>
-                  <TextInput
-                  style={styles.input}
-                      placeholder='Quantity'
-                      onChangeText={formikprops.handleChange('quantity')}
-                  /> 
               
 
               {/* <Button onPress={() => formikprops.setFieldValue('items', [formikprops.values.items, createItem()])} title="Add Item" /> */} 
@@ -134,8 +110,9 @@ export default function DetailsScreen({route}) {
               </View> */}
 
               <View style={styles.padding} />
-              <Button  title='submit' color='maroon' onPress={formikprops.handleSubmit} />
-
+              <Button  title='update info' color='maroon' onPress={formikprops.handleSubmit} />
+              <View style={{padding:5}} />
+              <Button title='edit items' color='green' onPress={() => navigation.navigate("ItemsPage", {email:email})} />
           </View>
         )}
         </Formik>
@@ -145,7 +122,7 @@ export default function DetailsScreen({route}) {
 
 const styles = StyleSheet.create({
   input :{
-    flex: 0.11,
+    flex: 0.15,
     width: 325,
     paddingLeft: 10,
     borderWidth: 1,

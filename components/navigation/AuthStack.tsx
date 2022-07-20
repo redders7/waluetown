@@ -13,6 +13,8 @@ import { View, Text, Button, BackHandler } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import DrawerStack from './DrawerStack'
 import VendorPage from '../VendorPage'
+import ItemsPage from '../ItemList'
+import EditItems from '../VendorItems';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,8 @@ function Auth() {
     <Stack.Screen name="Sign up" component = {SignupScreen} />
     <Stack.Screen name = "App" component = {DrawerStack} options = {{headerShown: false}} />
     <Stack.Screen name = "VendorPage" component = {VendorPage} />
+    <Stack.Screen name = "ItemsPage" component = {ItemsPage} />
+    <Stack.Screen name = "EditItems" component = {EditItems} />
     </Stack.Navigator> 
   );
 }   
