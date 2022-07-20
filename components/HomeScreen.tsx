@@ -140,7 +140,7 @@ useEffect(() => {
               Your Favourites
             </Text>
             <View style={{height: 180, marginTop: 10}}> 
-              <FlatList horizontal={true} keyExtractor={(item) => item.id} data = {shopData} 
+              <FlatList showsHorizontalScrollIndicator = {false} horizontal={true} keyExtractor={(item) => item.id} data = {shopData} 
                 renderItem={({item}) => (userFav.includes(item.shop_name) && 
                 <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
                 <View style={styles.shop}>
@@ -156,10 +156,10 @@ useEffect(() => {
         <View style = {styles.nearby}>
         <Text style = {{fontSize: 24, fontWeight: '700', }}> Nearby Stores</Text>
         <View style={styles.flatlist}>
-        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {newData.sort((a, b) => 
+        <FlatList numColumns={2} keyExtractor={(item) => item.id} data = {(newData.length ? newData : shopData).sort((a, b) => 
         getDistance({ latitude: pin.latitude, longitude: pin.longitude }, { latitude: a.latitude, longitude: a.longitude }) - 
         getDistance({ latitude: pin.latitude, longitude: pin.longitude }, { latitude: b.latitude, longitude: b.longitude })
-      )} extraData={updating}
+  )} extraData={updating}
         renderItem={({item}) => (
         <TouchableOpacity onPress={() => navigation.navigate("Shop", {id: item.id, image: logos[item.id-1].image})}>
           <View style={styles.shop}>

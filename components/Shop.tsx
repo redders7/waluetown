@@ -40,7 +40,10 @@ export default function ShopPage({route, navigation}) {
                 <Text style = {{fontSize: 25, textAlign: 'center'}}>
                     {!!name && name.length>0 && name[0].item_name}
                 </Text>
-                <Text style = {{marginTop: 10, fontSize: 20, textAlign: 'center'}}>
+                <Text style = {{marginTop: 10, fontSize: 20, textAlign: 'center', textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+                    ${!!name && name.length>0 && name[0].price}
+                </Text>
+                <Text style = {{marginTop: 5, fontSize: 22, textAlign: 'center'}}>
                     ${!!name && name.length>0 && name[0].price}
                 </Text>
                 {/* <Image source = {require('../assets/salmonsushi.png')} style = {{width: 150, height: 150, marginTop: 30, marginHorizontal: 40 }} /> */}
