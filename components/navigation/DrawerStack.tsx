@@ -18,7 +18,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
-function App() {
+function App({route}) {
   const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
@@ -36,18 +36,18 @@ function App() {
         <Drawer.Screen name="HomeStack" component={HomeStack} options={{
           title: 'Home', headerTransparent: true, drawerIcon: ({color}) => (<Ionicons name = "home-outline" size = {22} color ={color}/>)
         }} />
-        <Drawer.Screen name="Account" component = {Account} options={{
+        {/* <Drawer.Screen name="Account" component = {Account} options={{
           drawerIcon: ({color}) => (<Ionicons name = "person-outline" size = {22} color ={color}/>)
-        }}/>
-        <Drawer.Screen name = "Favourites" component = {FavouritesScreen} options={{
+        }}/> */}
+        <Drawer.Screen name = "Favourites" component = {FavouritesScreen} options={{ headerTransparent: true,
           drawerIcon: ({color}) => (<Ionicons name = "heart-outline" size = {22} color ={color}/>)
         }}/>
-        <Drawer.Screen name = "Rewards" component = {RewardsScreen} options={{
+        {/* <Drawer.Screen name = "Rewards" component = {RewardsScreen} options={{
           drawerIcon: ({color}) => (<Ionicons name = "gift-outline" size = {22} color ={color}/>)
-        }}/>
-        <Drawer.Screen name = "Settings" component = {SettingsScreen} options={{
+        }}/> */}
+        {/* <Drawer.Screen name = "Settings" component = {SettingsScreen} options={{
           drawerIcon: ({color}) => (<Ionicons name = "settings-outline" size = {22} color ={color}/>)
-        }}/>
+        }}/> */}
     </Drawer.Navigator> 
   );
 }   

@@ -19,4 +19,22 @@ async function getShopData(){
   return {shop2, error}
 }
 
-export {supabase, getShopData};
+async function getUserFav(){
+  let { data: favorites, error } = await supabase
+  .from('users')
+  .select('favorites')
+  .match({id: supabase.auth.user().id})
+  .single()
+  return {favorites, error}
+}
+
+async function updateUserFav(userFav){
+  let {error } = await supabase
+  .from('users')
+  .update({favorites: userFav})
+  .match({id: supabase.auth.user().id})
+  .single()
+}
+
+
+export {supabase, getShopData, getUserFav, updateUserFav};
