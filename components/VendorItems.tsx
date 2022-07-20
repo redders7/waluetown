@@ -17,10 +17,12 @@ export default function EditItems({route,navigation}) {
     return (
         <View style={styles.container}>
             <Formik
-                initialValues={{name:'', price:'', quantity:'', description:'' }}
+                initialValues={{name:'', usual_price:'', discounted_price: '', quantity:'', description:'', discount: '' }}
                 onSubmit={ async (values) => {
-                    console.log(route.params.email)
+                    const discount = (parseFloat(values.usual_price) - parseFloat(values.discounted_price)) / parseFloat(values.usual_price) * 100
+                    values.discount = discount.toFixed(1)
                     itemData.push(values)
+                    console.log(values.discount)
                     const { data,error } = await supabase
                         .from('shop2')
                         .update({itemData: itemData})
@@ -47,9 +49,16 @@ export default function EditItems({route,navigation}) {
 
                         <TextInput
                             style={styles.input}
-                            placeholder='Price'
-                            onChangeText={props.handleChange('price')}
-                            value={props.values.price}
+                            placeholder='Usual Price'
+                            onChangeText={props.handleChange('usual_price')}
+                            value={props.values.usual_price}
+                        />
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder='Discounted Price'
+                            onChangeText={props.handleChange('discounted_price')}
+                            value={props.values.discounted_price}
                         />
 
                         <TextInput

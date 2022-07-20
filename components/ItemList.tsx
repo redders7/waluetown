@@ -43,7 +43,7 @@ export default function ItemsPage({route,navigation}) {
             <View style = {{flex: 0.8, alignItems: 'center', justifyContent: 'center'}}>
             <FlatList numColumns={1} keyExtractor={(item) => item.id} data = {items} extraData = {updating}
                 renderItem={({item,index}) => (
-                    <TouchableOpacity onPress={() => {Alert.alert("Item Information", "Price: $" +item.price + "\n" + "Quantity left: " + item.quantity + "\n" + "Description: " + item.description,
+                    <TouchableOpacity onPress={() => {Alert.alert("Item Information", "Usual Price: $" +item.usual_price + "\n" + "Discounted Price: $" +item.discounted_price + "\n" + "Quantity left: " + item.quantity + "\n" + "Description: " + item.description,
                     [
                         {
                           text: "Delete",
@@ -61,13 +61,12 @@ export default function ItemsPage({route,navigation}) {
             </View>
             
         <TouchableOpacity onPress={() => {navigation.navigate("EditItems", {email:email, itemData: items})}}>
-        <View style={styles.padding}>
-
-        </View>
+            <View style={styles.padding}>
+            </View>
             <Text style = {{fontSize: 20, color: 'white' ,fontWeight: 'bold', textAlign: "auto",borderWidth:1, padding:5, borderColor: 'green', backgroundColor: 'green'}}>
                  Add Item 
-                </Text>
-            </TouchableOpacity>
+            </Text>
+        </TouchableOpacity>
         </View>
     )
 }
