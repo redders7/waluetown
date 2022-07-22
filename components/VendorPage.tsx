@@ -21,15 +21,30 @@ const createItem = () => ({
 export default function DetailsScreen({route,navigation}) {
   const [menuitems, addItems] = useState('');
   const {email} = route.params;
+  const [name, setName] = useState('')
+  const [lat, setLat] = useState('')
+  const [lon, setLon] = useState('')
+  const [pc, setPC] = useState('')
+  const [contact, setContact] = useState('')
+
+  async function getValues() {
+    let { data, error } = await supabase.from('shop2').select('*').eq('owner_email', email)
+    setName(data[0].shop_name)
+    setLat(JSON.stringify(data[0].latitude))
+    setLon(JSON.stringify(data[0].longitude))
+    setContact(JSON.stringify(data[0].contact))
+    setPC(JSON.stringify(data[0].postalcode))
+    }
 
   useEffect(() => {
-    console.log(email)
+    getValues()
 },[]);
   
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{name: '', postalcode: '', latitude: '', longitude: '', contact: ''}}
+      enableReinitialize
+        initialValues={{name: name, postalcode: pc, latitude: lat, longitude: lon, contact: contact}}
         onSubmit={ async (values) => {
           console.log(values)
           
@@ -52,8 +67,9 @@ export default function DetailsScreen({route,navigation}) {
             <Text style={styles.header}>Shop Name</Text>
             <TextInput
               style={styles.input}
-              placeholder = 'Shop Name'
+              placeholder = 'Name'
               onChangeText={formikprops.handleChange('name')}
+              value = {formikprops.values.name}
               returnKeyType='next'
               />
               
@@ -62,6 +78,7 @@ export default function DetailsScreen({route,navigation}) {
               style={styles.input}
               placeholder = 'Postal Code'
               onChangeText={formikprops.handleChange('postalcode')}
+              value = {formikprops.values.postalcode}
               returnKeyType='next'
               />
 
@@ -70,6 +87,7 @@ export default function DetailsScreen({route,navigation}) {
               style={styles.input}
               placeholder = 'Latitude'
               onChangeText={formikprops.handleChange('latitude')}
+              value = {formikprops.values.latitude}
               returnKeyType='next'
               />
 
@@ -78,6 +96,7 @@ export default function DetailsScreen({route,navigation}) {
               style={styles.input}
               placeholder = 'Longitude'
               onChangeText={formikprops.handleChange('longitude')}
+              value = {formikprops.values.longitude}
               returnKeyType='next'
               />
 
@@ -86,6 +105,8 @@ export default function DetailsScreen({route,navigation}) {
               style={styles.input}
               placeholder = 'Contact Number'
               onChangeText={formikprops.handleChange('contact')}
+              value = {formikprops.values.contact}
+              returnKeyType='done'
               />
               
 
