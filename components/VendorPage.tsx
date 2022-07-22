@@ -29,20 +29,20 @@ export default function DetailsScreen({route,navigation}) {
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{name: '', address: '', postalcode: '', latitude: '', longitude: '', contact: '', items: [''], description: '', price: '', quantity: 0}}
+        initialValues={{name: '', postalcode: '', latitude: '', longitude: '', contact: ''}}
         onSubmit={ async (values) => {
           console.log(values)
           
-          const { data: vendor_data, error: vendor_error } = await supabase
-          .from('users')
-          .update([
-            { shop_name: values.name, shop_address: values.address, shop_postalcode: values.postalcode, contact: values.contact, item1: menuitems, item1_quantity: values.quantity}])
-          .eq('email',  email)
+          // const { data: vendor_data, error: vendor_error } = await supabase
+          // .from('users')
+          // .update([
+          //   { shop_name: values.name, shop_address: values.address, shop_postalcode: values.postalcode, contact: values.contact, item1: menuitems, item1_quantity: values.quantity}])
+          // .eq('email',  email)
           
           const { data: shop_data, error: shop_error } = await supabase
           .from('shop2')
           .update([
-            { shop_name: values.name, item_name: menuitems, description: values.description, price: values.price, quantity: values.quantity, postalcode: values.postalcode, latitude: values.latitude, longitude: values.longitude}])
+            { shop_name: values.name, postalcode: values.postalcode, latitude: values.latitude, longitude: values.longitude, contact: values.contact}])
           .eq('owner_email',  email)
           Alert.alert("Success", "Shop details updated")
         }}>
@@ -56,15 +56,6 @@ export default function DetailsScreen({route,navigation}) {
               onChangeText={formikprops.handleChange('name')}
               returnKeyType='next'
               />
-
-              <Text style={styles.header}>Shop Address</Text>
-              <TextInput
-              multiline
-              style={styles.input}
-              placeholder = 'Shop Address'
-              onChangeText={formikprops.handleChange('address')}
-              returnKeyType='next'
-              />
               
               <Text style={styles.header}>Postal Code</Text>
               <TextInput
@@ -74,7 +65,7 @@ export default function DetailsScreen({route,navigation}) {
               returnKeyType='next'
               />
 
-              {/* <Text style={styles.header}>Latitude</Text>
+              <Text style={styles.header}>Latitude</Text>
               <TextInput
               style={styles.input}
               placeholder = 'Latitude'
@@ -88,7 +79,7 @@ export default function DetailsScreen({route,navigation}) {
               placeholder = 'Longitude'
               onChangeText={formikprops.handleChange('longitude')}
               returnKeyType='next'
-              /> */}
+              />
 
               <Text style={styles.header}>Contact Number</Text>
               <TextInput

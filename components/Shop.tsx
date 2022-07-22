@@ -36,6 +36,9 @@ export default function ShopPage({route, navigation}) {
         </Text>
         <View>
             <Image source = {{uri: image}} style = {{width: 200, height: 200, marginTop: 50, alignSelf: 'center' }} />
+            <Text style = {{alignSelf: 'center', fontSize: 15, marginTop: 10, fontStyle: 'italic'}}>
+                Contact Number: {!!name && name.length>0 && name[0].contact}
+            </Text>
         </View> 
         <View>
             <TouchableOpacity onPress={() => {navigation.navigate("Map", {shop_name: name[0].shop_name, latitude: name[0].latitude, longitude: name[0].longitude})}}>
